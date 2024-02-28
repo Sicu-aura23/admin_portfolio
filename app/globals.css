@@ -1,8 +1,124 @@
 @import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Inknut+Antiqua:wght@300;400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kadwa:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:wght@400;700&family=Podkova:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Mulish:wght@300&family=Ubuntu:wght@300&display=swap');
+
+/* Apply the fonts to the editor */
+/* .ql-editor {
+  font-family: "Kode Mono", monospace;
+} */
+
+/* .ql-picker.ql-font .ql-picker-label[data-value="Kode Mono"], 
+.ql-picker.ql-font .ql-picker-item[data-value="Kode Mono"]
+{
+
+    position: relative;
+    color: white !important;
+}
+.ql-picker.ql-font .ql-picker-label[data-value="Kode Mono"]::after, 
+.ql-picker.ql-font .ql-picker-item[data-value="Kode Mono"]::after
+{
+
+   position: absolute;
+  top: 0;
+  left: 0; 
+  margin-left: 10px;
+  color: black;
+    font-family: "Kode Mono",cursive;
+    content: "Kode Mono";
+} */
+
+.ql-picker.ql-font .ql-picker-label[data-value="Arial"]::before, 
+.ql-picker.ql-font .ql-picker-item[data-value="Arial"]::before
+{
+    font-family: "Arial", sans-serif;
+    content: "Arial"!important;
+}
+.ql-picker.ql-font .ql-picker-label[data-value="Kode Mono"]::before, 
+.ql-picker.ql-font .ql-picker-item[data-value="Kode Mono"]::before
+{
+  font-family: "Kode Mono",sans-serif;
+    content: "Kode Mono"!important;
+}
+
+.ql-picker.ql-font .ql-picker-label[data-value="Inika"]::before, 
+.ql-picker.ql-font .ql-picker-item[data-value="Inika"]::before
+{
+    font-family: "Inika", cursive;
+    content: "Inika" !important;
+}
+.ql-picker.ql-font .ql-picker-label[data-value="Asap"]::before, 
+.ql-picker.ql-font .ql-picker-item[data-value="Asap"]::before
+{
+    font-family: "Asap", cursive;
+    content: "Asap" !important;
+}
+.ql-picker.ql-font .ql-picker-label[data-value="Kadwa"]::before, 
+.ql-picker.ql-font .ql-picker-item[data-value="Kadwa"]::before
+{
+    font-family: "Kadwa", cursive;
+    content: "Kadwa" !important;
+}
+.ql-container {
+  border-radius: 5px 5px;
+  border-top: 1px solid rgb(207, 206, 206) !important;
+}
+.quill{
+  position: relative;
+}
+.ql-toolbar{
+  border-radius: 5px 5px;
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+  z-index: 10;
+  border:none !important;
+  box-shadow: 3px 2px 3px rgb(222, 221, 221);
+  background-color: #FAFAFA;
+
+  
+}
+.ql-picker-options{
+  top:auto!important;
+  bottom:0!important;
+  margin-bottom: 30px
+}
+#emoji-palette{
+  top: -145.5px !important;
+  left: auto !important;
+  right:25% !important;
+}
+/* .ql-snow{
+  background-color: #0e0c0c !important;
+  box-shadow: 2px 2px 30px #534d4d !important;
+} */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body{
+  font-family: "Inika", serif !important;
+}
+label {
+  font-weight: bold;
+  color:#404040;
+  font-size: larger;
+}
+span label {
+  font-size: medium;
+  color: #A0A0A0;
+}
+input{
+  accent-color: #404040;
+  font-size: small;
+  padding: 4px 0;
+}
+select {
+  padding: 4px 0;
+}
+input[type="radio"]:checked + label { 
+  color: #404040;
+} 
  
 /* @layer base {
   :root {

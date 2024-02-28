@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from './Navbar'
 import { Sidebar } from './Sidebar'
 
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
