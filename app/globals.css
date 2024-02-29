@@ -62,14 +62,18 @@
 .ql-container {
   border-radius: 5px 5px;
   border-top: 1px solid rgb(207, 206, 206) !important;
+  width: 78.7vw;
+  
+  /* height: 30vh !important; */
 }
 .quill{
-  position: relative;
+ height: 30vh;
 }
-.ql-toolbar{
+#toolbar{
   border-radius: 5px 5px;
-  position: absolute;
-  bottom: 0;
+  position: absolute !important;
+  bottom: 15%;
+  left: 17%;
   margin: 10px;
   z-index: 10;
   border:none !important;
