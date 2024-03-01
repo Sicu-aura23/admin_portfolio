@@ -59,21 +59,23 @@
     font-family: "Kadwa", cursive;
     content: "Kadwa" !important;
 }
+.ql-editor ol li::before {
+  content: counter(list-0, upper-alpha) '. ' !important;
+}
+
+
 .ql-container {
   border-radius: 5px 5px;
   border-top: 1px solid rgb(207, 206, 206) !important;
-  width: 78.7vw;
-  
-  /* height: 30vh !important; */
+  width:100%;
 }
 .quill{
- height: 30vh;
+  position: relative !important;
 }
-#toolbar{
+.ql-toolbar{
   border-radius: 5px 5px;
   position: absolute !important;
-  bottom: 15%;
-  left: 17%;
+  bottom: 0;
   margin: 10px;
   z-index: 10;
   border:none !important;
