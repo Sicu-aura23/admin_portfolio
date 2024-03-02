@@ -103,7 +103,7 @@ const modules = {
   return (
     <div className="text-editor w-[85vw]">
     <ReactQuill
-    className="h-[30vh]"
+    className="min-h-[30vh] max-w-screen"
     placeholder="Type job description here"
 
       theme="snow"

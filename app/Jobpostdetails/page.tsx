@@ -50,7 +50,7 @@ const Viewjobpost: React.FC<{loading:boolean}> = () => {
     const pathname = usePathname()
     return (
         <main className={'grid place-items-center items-center'}>
-        <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
+          <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
         <Link href={'/'} className='flex flex-col justify-center items-center'>
         <span className={pathname==='/'?' text-[#0DF5E3]':pathname==='/Viewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
         <span className={pathname==='/'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Viewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
@@ -76,10 +76,7 @@ const Viewjobpost: React.FC<{loading:boolean}> = () => {
         ))}
     </div>
                     </div>
-                    <div className='my-12 gap-4 flex flex-col'>
-                        <h1 className=' font-Inika font-bold text-2xl'>Job Description</h1>
-                        <div dangerouslySetInnerHTML={{ __html: formData?.description || '' }} />
-                    </div>
+                   
                 </div>
             </section>
             <div className='flex flex-row w-full justify-end gap-5 px-6 py-6 font-Inika'>
@@ -88,25 +85,8 @@ const Viewjobpost: React.FC<{loading:boolean}> = () => {
                         Back
                     </button>
                 </Link>
-                <button onClick={postjob} className='bg-[#201A31] shadow-md shadow-gray-400 rounded px-[2vw] py-[1vh] text-[#A0A0A0] float-end'>
-                    Post
-                </button>
             </div>
-            {loading && (
-                <motion.div
-                    className='w-[30%] bg-white rounded-xl h-[20vh] absolute flex flex-col justify-center items-center' style={{ boxShadow: "1px 1px 30px lightgray" }}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{
-                        type: "spring",
-                        stiffness: 260,
-                        damping: 20
-                    }}
-                >
-                    <Image src={check} width={50} alt="tic" />
-                    <h1 className='font-Inika'>Job has been posted Successfully</h1>
-                </motion.div>
-            )}
+            
         </main>
     )
 }

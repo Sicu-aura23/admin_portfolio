@@ -28,6 +28,11 @@
     content: "Kode Mono";
 } */
 
+body{
+margin: 0;
+padding: 0;
+}
+
 .ql-picker.ql-font .ql-picker-label[data-value="Arial"]::before, 
 .ql-picker.ql-font .ql-picker-item[data-value="Arial"]::before
 {
@@ -65,12 +70,16 @@
 
 
 .ql-container {
-  border-radius: 5px 5px;
-  border-top: 1px solid rgb(207, 206, 206) !important;
+  /* border-radius: 5px 5px;
+  border-top: 1px solid rgb(207, 206, 206) !important; */
+  border: none !important;
   width:100%;
+  height: 80% !important;
 }
 .quill{
   position: relative !important;
+  border: 1px solid rgb(207, 206, 206) !important;
+  border-radius: 5px 5px;
 }
 .ql-toolbar{
   border-radius: 5px 5px;

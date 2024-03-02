@@ -23,7 +23,7 @@ export default function RootLayout({
 
           <div className='flex'>
           <Sidebar/>
-          <div>
+          <div className='w-screen h-screen'>
           <Navbar/>
 
             {children}           

@@ -4,7 +4,8 @@ import TextEditor, { EditorContentChanged } from './Jobpost/texteditor'
 import vector from '@/public/vector x.png'
 import vector1 from '@/public/vector +.png'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export interface EditorProps {
   value?: string;
@@ -87,17 +88,23 @@ const Jobpost = () => {
     });
     router.push(`/Viewjobpost`);
   };
-
+  const pathname = usePathname()
 
   return (
-    <main className={'w-[100%] flex flex-col items-center'}>
-       <div className={'border-b w-[95%] space-x-10 px-0 py-2 font-Inika'}>
-        <span className={'border-b-2 border-cyan-300'}>Post a Job</span>
-        <span className={'border-b-2 border-cyan-300'}>Job post Details</span>
+    <main className={'flex flex-col items-center '}>
+          <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
+        <Link href={'/'} className='flex flex-col justify-center items-center'>
+        <span className={pathname==='/'?' text-[#0DF5E3]':pathname==='/Viewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
+        <span className={pathname==='/'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Viewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
+        </Link>
+        <Link href={'/Jobpostdetails'} className='flex flex-col justify-center items-center'>
+        <span className={pathname==='/Jobpostdetails'?' text-[#0DF5E3]':''}>Job-post Details</span>
+        <span  className={pathname==='/Jobpostdetails'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':'p-[1.5px] w-[40px] bg-[#ffff]'}></span>
+        </Link>
        </div>
-        <form className={'w-[95%] mt-5 space-y-5'}  onSubmit={handleSubmit}>
+        <form className={'w-[95%] relative mt-5 flex flex-col gap-3'}  onSubmit={handleSubmit}>
            <div className='flex md:justify-between space-y-3 md:space-y-0 md:flex-row flex-col '>
-            <div className=' md:space-x-10'>
+            <div className=' md:space-x-12'>
             <label className='font-Inika '>Job Title</label>
            <input className='border rounded outline-none md:w-[30vw] w-[85vw] px-3' name='jobtitle'   onChange={handleInputChange} placeholder='Add the title you are hiring for' />
             </div>
@@ -113,9 +120,10 @@ const Jobpost = () => {
 
             </div>
            </div>
-           <div className='flex flex-wrap items-center md:gap-5 gap-0 gap-y-5'>
-              <label className='w-[100px] bg-gra-500'>Type</label>
-            <div className='flex gap-10 '>
+           <div className='flex gap-20'>
+              <label className=''>Type</label>
+           <div className='flex flex-wrap items-center w-[100%] justify-between gap-y-5'>
+            <div className='flex gap-12 '>
               <span className='flex gap-2'>
               <input type="radio" name='type'value='Job' 
           onChange={handleInputChange} />
@@ -128,21 +136,17 @@ const Jobpost = () => {
 
               </span>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
+          
             
-            <div className='flex md:gap-5 gap-0 gap-y-5 flex-wrap '>
-              <label className='w-[100px] '> Job Type</label>
+            <div className='flex justify-between gap-y-5 flex-wrap '>
+              <label className='w-[100px]'> Job Type</label>
               <select className='border outline-none text-[#404040] md:w-[20vw] w-[85vw] rounded' onChange={handleInputChange} name="jobtype" id="Job Type">
            <option selected disabled hidden >Select</option>
     <option value="On-site">On-site</option>
     <option value="Remote">Remote</option>
   </select>  
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
+         
   <div className='flex items-center md:gap-5 gap-0 gap-y-5 flex-wrap'>
 
               <label className='w-[100px] '>Duration</label>
@@ -159,8 +163,12 @@ const Jobpost = () => {
             </div>
   </div>
            </div>
-           <div className='flex items-start md:gap-5 gap-0 gap-y-5 '>
-              <label className='w-[100px] '>Payroll</label>
+
+           </div>
+           <div className='flex gap-[60px]'>
+              <label className=''>Payroll</label>
+           <div className='flex items-start w-[100%]  justify-between gap-y-5 '>
+              
             <div className='flex gap-10'>
               <span className='flex gap-2'>
               <input type="radio" name='payroll' onChange={handleInputChange}  value='Paid' />
@@ -172,12 +180,9 @@ const Jobpost = () => {
 
               </span>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div className='flex gap-5'>
-          <label className='w-[100px] '>Skills</label>
-          <div className='flex flex-wrap md:gap-5 gap-10 z-20   w-[55vw]'>
+            <div className='flex'>
+          <label className='w-[100px]  '>Skills</label>
+          <div className='flex flex-wrap gap-5 w-[53vw]'>
             {skills.map((skill, index) => (
               <span key={index} className=' h-[30px]  border rounded px-2 flex items-center border-gray-400'>
                 <input
@@ -196,6 +201,8 @@ const Jobpost = () => {
           </div>
         </div>
            </div>
+
+           </div>
            <div className='flex md:flex-row flex-col gap-5 '>
             <label  className='w-[100px] '>Email</label>
             <input type="text" className='border rounded md:w-[30vw] w-[85vw] px-3 outline-none' name='email' placeholder='Write here Email ID' onChange={handleInputChange} />
@@ -209,7 +216,7 @@ const Jobpost = () => {
    
            </div>
            <div >{editorValue}</div>
-           <button className='bg-[#201A31] rounded px-[2vw] py-[1vh] text-[#A0A0A0] float-end'>
+           <button className='bg-[#201A31] absolute -bottom-10 right-0 rounded  px-[2vw] py-[1vh] text-[#A0A0A0]'>
             Preview
            </button>
         </form>
