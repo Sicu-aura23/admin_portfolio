@@ -17,6 +17,9 @@ import {
 import { GiSkills } from "react-icons/gi";
 import check from '@/public/Checkmark.png';
 import { usePathname } from 'next/navigation';
+import app, { db } from '../firebase.config';
+import { DocumentData, addDoc, collection, doc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
 
 interface FormData {
     jobtitle: string;
@@ -34,30 +37,45 @@ interface FormData {
 const Viewjobpost: React.FC<{loading:boolean}> = () => {
     const [formData, setFormData] = useState<FormData | null>(null);
     const [loading, setLoading] = useState<boolean | null>(null);
+    const [post, setPost] = useState<DocumentData | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
         const formDataFromLocalStorage = JSON.parse(window.localStorage.getItem("formdata") || "{}") as FormData;
         setFormData(formDataFromLocalStorage);
         console.log(formDataFromLocalStorage)
     }, []);
-    const postjob = () => {
-        setLoading(true)
 
-        // console.log("posted")
-        // window.localStorage.removeItem("formdata")
-        // setLoading(false)
-    }
+
+    const postjob = async () => {
+        try {
+            setLoading(true);
+            const formDataWithTimestamp = {
+                ...formData,
+                timestamp: serverTimestamp()
+            };
+            const docRef = await addDoc(collection(db, 'JobList'), formDataWithTimestamp);
+            console.log('Document added with ID:', docRef.id);
+            setLoading(false);
+            router.push(`/Jobposts`);
+        } catch (error) {
+            console.error('Error adding document:', error);
+            setLoading(false);
+        }
+    };
+    
+    
     const pathname = usePathname()
     return (
         <main className={'grid place-items-center items-center'}>
-          <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
+        <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
         <Link href={'/'} className='flex flex-col justify-center items-center'>
-        <span className={pathname==='/'?' text-[#0DF5E3]':pathname==='/Viewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
-        <span className={pathname==='/'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Viewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
+        <span className={pathname==='/'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
+        <span className={pathname==='/'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
         </Link>
-        <Link href={'/Jobpostdetails'} className='flex flex-col justify-center items-center'>
-        <span className={pathname==='/Jobpostdetails'?' text-[#0DF5E3]':''}>Job-post Details</span>
-        <span  className={pathname==='/Jobpostdetails'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':'p-[1.5px] w-[40px] bg-[#ffff]'}></span>
+        <Link href={'/Jobposts'} className='flex flex-col justify-center items-center'>
+        <span className={pathname==='/Jobposts'?' text-[#0DF5E3]':''}>Job-post Details</span>
+        <span  className={pathname==='/Jobposts'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':'p-[1.5px] w-[40px] bg-[#ffff]'}></span>
         </Link>
        </div>
             <section className='w-[95%] h-[55vh] overflow-y-scroll my-6 border rounded-lg text-black'>
@@ -76,7 +94,10 @@ const Viewjobpost: React.FC<{loading:boolean}> = () => {
         ))}
     </div>
                     </div>
-                   
+                    <div className='my-12 gap-4 flex flex-col'>
+                        <h1 className=' font-Inika font-bold text-2xl'>Job Description</h1>
+                        <div dangerouslySetInnerHTML={{ __html: formData?.description || '' }} />
+                    </div>
                 </div>
             </section>
             <div className='flex flex-row w-full justify-end gap-5 px-6 py-6 font-Inika'>
@@ -85,8 +106,25 @@ const Viewjobpost: React.FC<{loading:boolean}> = () => {
                         Back
                     </button>
                 </Link>
+                <button onClick={postjob} className='bg-[#201A31] shadow-md shadow-gray-400 rounded px-[2vw] py-[1vh] text-[#A0A0A0] float-end'>
+                    Post
+                </button>
             </div>
-            
+            {loading && (
+                <motion.div
+                    className='w-[30%] bg-white rounded-xl h-[20vh] absolute flex flex-col justify-center items-center' style={{ boxShadow: "1px 1px 30px lightgray" }}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 20
+                    }}
+                >
+                    <Image src={check} width={50} alt="tic" />
+                    <h1 className='font-Inika'>Job has been posted Successfully</h1>
+                </motion.div>
+            )}
         </main>
     )
 }

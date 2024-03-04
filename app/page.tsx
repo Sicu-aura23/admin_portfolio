@@ -48,6 +48,7 @@ const Jobpost = () => {
         skills: [],
         email: '',
         description: '',
+        status:'Active',
       };
     }
   });
@@ -86,7 +87,7 @@ const Jobpost = () => {
       email: '',
       description: '',
     });
-    router.push(`/Viewjobpost`);
+    router.push(`/Previewjobpost`);
   };
   const pathname = usePathname()
 
@@ -94,12 +95,12 @@ const Jobpost = () => {
     <main className={'flex flex-col items-center '}>
           <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
         <Link href={'/'} className='flex flex-col justify-center items-center'>
-        <span className={pathname==='/'?' text-[#0DF5E3]':pathname==='/Viewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
-        <span className={pathname==='/'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Viewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
+        <span className={pathname==='/'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
+        <span className={pathname==='/'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
         </Link>
-        <Link href={'/Jobpostdetails'} className='flex flex-col justify-center items-center'>
-        <span className={pathname==='/Jobpostdetails'?' text-[#0DF5E3]':''}>Job-post Details</span>
-        <span  className={pathname==='/Jobpostdetails'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':'p-[1.5px] w-[40px] bg-[#ffff]'}></span>
+        <Link href={'/Jobposts'} className='flex flex-col justify-center items-center'>
+        <span className={pathname==='/Jobposts'?' text-[#0DF5E3]':''}>Job-post Details</span>
+        <span  className={pathname==='/Jobposts'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':'p-[1.5px] w-[40px] bg-[#ffff]'}></span>
         </Link>
        </div>
         <form className={'w-[95%] relative mt-5 flex flex-col gap-3'}  onSubmit={handleSubmit}>

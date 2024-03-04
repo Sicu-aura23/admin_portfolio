@@ -16,10 +16,10 @@ export const Sidebar = () => {
     
     <div className={'w-20 text-white flex flex-col gap-20 pt-20  bg-[#020E1B]'}>
       <div className='flex gap-3'>
-        <Image src={pathname==='/'?line:pathname==='/Viewjobpost'?line:""}  alt=''/>
+        <Image src={pathname==='/'?line:pathname==='/Previewjobpost'?line:pathname==='/Jobposts'?line:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9'?line:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9/Applicants'?line:""}  alt=''/>
         
       <div className='flex flex-col items-center'>
-       <Image src={pathname==='/'?jobcolor:pathname==='/Viewjobpost'?jobcolor:job}  alt='job'/>
+       <Image src={pathname==='/'?jobcolor:pathname==='/Previewjobpost'?jobcolor:pathname==='/Jobposts'?jobcolor:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9'?jobcolor:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9/Applicants'?jobcolor:job}  alt='job'/>
        <span className='text-xs'>Job Post</span>
       </div>
 
