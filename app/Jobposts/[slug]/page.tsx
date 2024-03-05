@@ -16,10 +16,9 @@ import {
 
 import { GiSkills } from "react-icons/gi";
 import check from '@/public/Checkmark.png';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import app, { db } from '../../firebase.config';
-import { DocumentData, addDoc, collection, doc, getDoc } from 'firebase/firestore';
-import { useRouter } from 'next/router';
+import { DocumentData, addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 
 interface post {
     jobtitle: string;
@@ -31,33 +30,52 @@ interface post {
     skills: string[];
     email: string;
     description: string;
+    lookingfor:string;
     // Add other keys as needed
 }
 
 const page: React.FC<{loading:boolean;params:any }> = ({params}) => {
     const jobid = params.slug
+    const router = useRouter();
     const [loading, setLoading] = useState<boolean | null>(null);
     const [post, setPost] = useState<DocumentData | null>(null);
 
     useEffect(() => {
+        setLoading(true)
         const formDataFromLocalStorage = JSON.parse(window.localStorage.getItem("jobposts") || "[]");
         const filteredData = formDataFromLocalStorage.filter((data: { id: any; }) => data.id === jobid);
         setPost(filteredData.length > 0 ? filteredData[0] : null);
+        setLoading(false)
     }, []);
     
    
   
-    const postjob = async () => {
+    const closethejob = async () => {
         try {
-            setLoading(true)
-            const docRef = await addDoc(collection(db, 'JobList'), post);
-            console.log('Document added with ID:', docRef.id);
-            setLoading(false)
-       
+            setLoading(true);
+            const docRef = doc(db, 'JobList', jobid);
+            await updateDoc(docRef, { status: 'inactive' });
+            console.log('Document updated with ID:', jobid);
+            setLoading(false);
+            router.push(`/Jobposts`);
         } catch (error) {
-            console.error('Error adding document:', error);
+            console.error('Error updating document:', error);
         }
     };
+    const activejob = async () => {
+        try {
+            setLoading(true);
+            const docRef = doc(db, 'JobList', jobid);
+            await updateDoc(docRef, { status: 'active' });
+            console.log('Document updated with ID:', jobid);
+            setLoading(false);
+            router.push(`/Jobposts`);
+
+        } catch (error) {
+            console.error('Error updating document:', error);
+        }
+    };
+    
     const pathname = usePathname()
     return (
         <main className={'grid place-items-center items-center'}>
@@ -72,11 +90,36 @@ const page: React.FC<{loading:boolean;params:any }> = ({params}) => {
 </Link>
 
      </div>
+{
+    loading?(
+        <div role="status" className="animate-pulse w-[95%] space-y-11 py-5 my-6 bg-slate-300 rounded-md">
+        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700  w-[30%] mb-2.5 mx-[1%]"></div>
+        <div className='flex mx-[1%]'>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700  w-[15%] mb-2.5 "></div>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700  w-[10%] mb-2.5 mx-[5%]"></div>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700  w-[10%] mb-2.5 mx-[5%]"></div>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700  w-[10%] mb-2.5 mx-[5%]"></div>
+
+        </div>
+        <div className='flex mx-[1%]'>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700  w-[15%] mb-2.5 "></div>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700  w-[5%] mb-2.5 mx-[5%]"></div>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700  w-[8%] mb-2.5 mx-[5%]"></div>
+
+        </div>
+        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 mt-10 w-[90%] mb-2.5 mx-[1%]"></div>
+        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 mt-10 w-[90%] mb-2.5 mx-[1%]"></div>
+        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 mt-10 w-[90%] mb-2.5 mx-[1%]"></div>
+   
+     
+        <span className="sr-only">Loading...</span>
+    </div>
+    ):
           <section className='w-[95%] h-[55vh] overflow-y-scroll px-10 my-6 border rounded-lg text-black'>
       
               <div className='flex border-b border-gray-300 justify-between '>
               <div className='flex flex-col items-start justify-evenly  my-5'>
-              <h1 className='font-Inknut font-bold text-2xl '>{post?.jobtitle} <span className='text-xs mx-6 text-[#00D347] uppercase'>• {post?.status}</span></h1>
+              <h1 className='font-Inknut font-bold text-2xl '>{post?.jobtitle} <span className={post?.status === "inactive"?'text-[#FF0000] text-xs mx-6 7] uppercase':'text-xs mx-6 text-[#00D347] uppercase'}>• {post?.status}</span></h1>
                   <div className='flex flex-row flex-wrap  gap-20 h-auto w-full my-8 z-0'>
                       <div className='flex flex-row items-center justify-evenly gap-2 font-Inknut font-normal text-sm text-black'><CiLocationOn />{post?.location} </div>
                       <div className='flex flex-row items-center justify-evenly gap-2 font-Inknut font-normal text-sm text-black'><FaMoneyBill />{post?.type} </div>
@@ -93,17 +136,17 @@ const page: React.FC<{loading:boolean;params:any }> = ({params}) => {
       ))}
   </div>
   <div>
-      ● 100 Applicants
+  • {post?.count} Applicants
   </div>
   <div>
-  ● {post?.daysSinceLastUpdate}
+  • {post?.daysSinceLastUpdate}
   </div>
                   </div>
               </div>
               
-              <div>
+              <Link href={`/Jobposts/${jobid}/Applicants/Edit`}>
                   <button className='flex px-6 py-1 mt-6 rounded-full'><Image src={edit} alt='edit'/>Edit</button>
-              </div>
+              </Link>
               </div>
               <div className='my-12 gap-4 flex'>
                 <div>
@@ -111,7 +154,12 @@ const page: React.FC<{loading:boolean;params:any }> = ({params}) => {
                         <div dangerouslySetInnerHTML={{ __html: post?.description || '' }} />
                 </div>
                 <div>
-                <button className='bg-[#FF0000] h-10 w-44 text-white shadow-md shadow-gray-400  px-4 py-1 rounded mb-5'>Close job post</button>
+                    {
+                        post?.status === "inactive"?
+                        <button onClick={activejob} className='bg-[#00D347] h-10 w-44 text-white shadow-md shadow-gray-400  px-4 py-1 rounded mb-5'>Active job post</button>
+                        :
+                        <button onClick={closethejob} className='bg-[#FF0000] h-10 w-44 text-white shadow-md shadow-gray-400  px-4 py-1 rounded mb-5'>Close job post</button>
+                    }
                 <Link href={`/Jobposts/${jobid}/Applicants`}>
                 <button className='bg-[#00D347] h-10 w-44 text-white shadow-md shadow-gray-400  px-4 py-1 rounded'>View Applicants</button>
                 </Link>
@@ -119,6 +167,7 @@ const page: React.FC<{loading:boolean;params:any }> = ({params}) => {
                     </div>
              
           </section>
+}
           <div className='flex flex-row w-full justify-end gap-5 px-6 py-6 font-Inika'>
               <Link href={'/Jobposts'}>
                   <button className='bg-[#ffffff] shadow-md shadow-gray-400 rounded px-[2vw] py-[1vh] text-[#201A31] float-end'>

@@ -9,6 +9,7 @@ import IMG from '@/public/Edit Image.png'
 import IMGcolor from '@/public/Edit Image1.png'
 import line from'@/public/Line 83.png'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 export const Sidebar = () => {
   const pathname = usePathname()
@@ -25,12 +26,12 @@ export const Sidebar = () => {
 
       </div>
       <div className='flex gap-5'>
-      <Image src={pathname==='/videopost'?line:""}  alt=''/>
+      <Image src={pathname==='/Videoposts'?line:pathname==='/Videoposts/Postdetails'?line:""}  alt=''/>
         
-      <div className='flex flex-col  items-center'>
-       <Image src={pathname==='/videopost'?videocolor:video}  alt='video'/>
+      <Link href={'/Videoposts'} className='flex flex-col  items-center'>
+       <Image src={pathname==='/Videopost'?videocolor:pathname==='/Videoposts/Postdetails'?videocolor:video}  alt='video'/>
        <span className='text-xs'>Video</span>
-      </div>
+      </Link>
 
       </div>
       <div className='flex gap-6'>

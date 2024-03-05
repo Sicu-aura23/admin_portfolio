@@ -49,6 +49,7 @@ const Jobpost = () => {
         email: '',
         description: '',
         status:'Active',
+        lookingfor:'',
       };
     }
   });
@@ -207,6 +208,10 @@ const Jobpost = () => {
            <div className='flex md:flex-row flex-col gap-5 '>
             <label  className='w-[100px] '>Email</label>
             <input type="text" className='border rounded md:w-[30vw] w-[85vw] px-3 outline-none' name='email' placeholder='Write here Email ID' onChange={handleInputChange} />
+           </div>
+           <div className='flex md:flex-row flex-col gap-3 '>
+            <label  className='w-[110px] '>Looking for</label>
+            <textarea  className='border text-[13px] pt-2 rounded md:w-[30vw] w-[85vw] h-auto px-3 outline-none' name='lookingfor' placeholder='Write what you looking for' onChange={handleInputChange} />
            </div>
            <div className='flex md:flex-row flex-col gap-5'>
             <label className=''>Description</label>
