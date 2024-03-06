@@ -1,14 +1,6 @@
 "use client";
 import React, { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { CiLocationOn, CiClock2 } from "react-icons/ci";
-
-import { FaMoneyBill, FaDesktop, FaIndianRupeeSign } from "react-icons/fa6";
-
-import { GiSkills } from "react-icons/gi";
-import check from "@/public/Checkmark.png";
 import { usePathname } from "next/navigation";
 import {
   DocumentData,
@@ -40,7 +32,7 @@ interface post {
   // Add other keys as needed
 }
 
-const Viewjobpost: React.FC<{ loading: boolean }> = () => {
+const Viewjobpost: React.FC<{ }> = () => {
   const [post, setPost] = useState<DocumentData | null>(null);
   const [loading, setLoading] = useState<boolean | null>(null);
 

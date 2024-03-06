@@ -34,7 +34,7 @@ interface FormData {
     // Add other keys as needed
 }
 
-const Viewjobpost: React.FC<{loading:boolean}> = () => {
+const Viewjobpost: React.FC<{}> = () => {
     const [formData, setFormData] = useState<FormData | null>(null);
     const [loading, setLoading] = useState<boolean | null>(null);
     const [post, setPost] = useState<DocumentData | null>(null);

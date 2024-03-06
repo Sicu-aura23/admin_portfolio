@@ -11,7 +11,7 @@ export interface EditorProps {
   value?: string;
   onChange?: (changes: EditorContentChanged) => void;
 }
-const videopost: React.FC<{loading:boolean;params:any }> = ({params}) => {
+const videopost: React.FC<{params:any }> = ({params}) => {
     const postid = params.slug
   const [editorValue, setEditorValue] = useState<string>("");
   const [loading, setLoading] = useState<boolean | null>(null);

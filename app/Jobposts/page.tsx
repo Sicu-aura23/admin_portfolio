@@ -20,7 +20,7 @@ import { db } from '../firebase.config';
 
  // Add other keys as needed
 
-const Viewjobpost: React.FC<{ loading: boolean }> = () => {
+const Viewjobpost: React.FC<{}> = () => {
     const [post, setPost] = useState<DocumentData | null>(null);
     const [loading, setLoading] = useState<boolean | null>(null);
     const [isClient, setIsClient] = useState(false)
