@@ -66,7 +66,7 @@ const page: React.FC<{loading:boolean;params:any }> = ({params}) => {
         try {
             setLoading(true);
             const docRef = doc(db, 'JobList', jobid);
-            await updateDoc(docRef, { status: 'active' });
+            await updateDoc(docRef, { status: 'Active' });
             console.log('Document updated with ID:', jobid);
             setLoading(false);
             router.push(`/Jobposts`);

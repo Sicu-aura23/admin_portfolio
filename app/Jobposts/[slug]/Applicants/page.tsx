@@ -122,7 +122,7 @@ const page: React.FC<{ loading: boolean; params: any }> = ({ params }) => {
                         <span className="sr-only">Loading...</span>
                     </div>
                 ) :
-                    <section className='w-[95%] h-[55vh] overflow-y-scroll px-5 my-6 border rounded-lg text-black'>
+                    <section className='w-[95%] h-[60vh] overflow-y-scroll px-5 my-6 border rounded-lg text-black'>
 
                         <div className='flex border-b border-gray-300 justify-between '>
                             <div className='flex flex-col items-start justify-evenly  my-5'>
@@ -164,7 +164,7 @@ const page: React.FC<{ loading: boolean; params: any }> = ({ params }) => {
                                     applications && applications.map((data) => {
                                         return (
 
-                                            <div className='flex items-center gap-5 p-5 border-l-4 border-l-blue-800 rounded-l-sm '>
+                                            <div className='flex items-center gap-5 p-5 border-l-4 border rounded border-l-blue-800 rounded-l-sm '>
 
 
                                                 <img className='rounded-full border  w-[70px] h-[70px]' src={data.photo} alt='profile' />
@@ -179,19 +179,21 @@ const page: React.FC<{ loading: boolean; params: any }> = ({ params }) => {
                                 }
 
                             </div>
+                            <div className='border rounded w-8/12 p-5 flex flex-col gap-14'>
                             {
                                 applications && applications.map((data) => {
                                     return (
-                                        <div className='border rounded w-8/12 p-5'>
+                                            <div>
                                             <h1 className='font-semibold'>{data.firstName}<span>{" "}{data.lastName}</span>'s Application</h1>
                                             <p className='text-xs text-gray-400'>{data.address}</p>
                                             <p className='text-xs text-gray-400'>{data.highestDegree} in <span>{data.stream}</span>, {data.institution}</p>
                                             <p className='text-xs text-gray-400'>{data.email}</p>
-                                        </div>
+                                                </div>
 
                                     )
                                 })
                             }
+                            </div>
                         </div>
                     </section>
             }

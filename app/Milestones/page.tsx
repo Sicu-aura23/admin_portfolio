@@ -16,7 +16,11 @@ const videopost = () => {
   const [uploading, setUploading] = useState(false);
   const [percent, setPercent] = useState<number | null>(null);
   const [fileUrl, setFileUrl] = useState('');
-  const date = new Date().toISOString().split('T')[0]
+  const date = new Date().toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
   const router = useRouter();
   const [formData, setFormData] = useState(() => {
     const savedData = localStorage.getItem('formData');
@@ -28,7 +32,7 @@ const videopost = () => {
         tagline: "",
         content: "",
         date: "",
-        author: "",
+        // author: "",
         imageUrl: "",
       };
     }
@@ -71,7 +75,7 @@ if(type ==='file'){
         alert("Please choose a file first!")
     }
     setUploading(true);
-    const storageRef = ref(storage, `/postsimage/${formData.imageUrl.name}`)
+    const storageRef = ref(storage, `/milestonesimage/${formData.imageUrl.name}`)
     const uploadTask = uploadBytesResumable(storageRef, formData.imageUrl);
 
     uploadTask.on(
@@ -112,7 +116,7 @@ if(type ==='file'){
         if (!formData.imageUrl) {
             alert("Please choose a file first!")
         }
-        firestore.collection('blogPosts').add(updatedFormData)
+        firestore.collection('milestones').add(updatedFormData)
         .then((docRef) => {
             console.log("Document written with ID: ", docRef.id);
         })
@@ -120,19 +124,19 @@ if(type ==='file'){
           console.error("Error adding document: ", error);
         });
         setLoading(false);
-      router.push('/Videoposts/Postdetails')
+      router.push('/Milestones/Postdetails')
       }
     const pathname = usePathname()
 
   return (
     <main className={'flex flex-col items-center '}>
           <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
-        <Link href={'/'} className='flex flex-col justify-center items-center'>
-        <span className={pathname==='/Videoposts'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a blogs</span>
-        <span className={pathname==='/Videoposts'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
+        <Link href={'Milestones'} className='flex flex-col justify-center items-center'>
+        <span className={pathname==='/Milestones'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a images</span>
+        <span className={pathname==='/Milestones'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
         </Link>
-        <Link href={'/Videoposts/Postdetails'} className='flex flex-col justify-center items-center'>
-        <span className={pathname==='/Jobposts'?' text-[#0DF5E3]':''}>Updated Blogs</span>
+        <Link href={'/Milestones/Postdetails'} className='flex flex-col justify-center items-center'>
+        <span className={pathname==='/Jobposts'?' text-[#0DF5E3]':''}>Updated posts</span>
         <span  className={pathname==='/Jobposts'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':'p-[1.5px] w-[40px] bg-[#ffff]'}></span>
         </Link>
        </div>
@@ -142,10 +146,10 @@ if(type ==='file'){
             <label  className='w-[130px] '>Title</label>
             <input type="text" className='border rounded md:w-[30vw] w-[85vw] px-3 outline-none' name='title' placeholder='Write here Title' onChange={handleInputChange} />
            </div>
-           <div className='flex md:flex-row flex-col gap-5 '>
+           {/* <div className='flex md:flex-row flex-col gap-5 '>
             <label  className='w-[130px] '>Author</label>
             <input type="text" className='border rounded md:w-[30vw] w-[85vw] px-3 outline-none' name='author' placeholder='Write here Author' onChange={handleInputChange} />
-           </div>
+           </div> */}
            <div className='flex md:flex-row flex-col gap-5 '>
             <label  className='w-[130px] '>Tagline</label>
             <input type="text" className='border rounded md:w-[30vw] w-[85vw] px-3 outline-none' name='tagline' placeholder='Write here Tagline' onChange={handleInputChange} />
@@ -157,7 +161,7 @@ if(type ==='file'){
            </div>
          
            <div className='text-md flex md:flex-row flex-col gap-3'>
-           <label  className='w-[140px] '>Upload Video</label>
+           <label  className='w-[140px] '>Upload image</label>
             <input className='border rounded w-[50%]' type="file" onChange={handleInputChange} name="imageUrl"  />
             <button disabled={uploading} onClick={handleUpload}  className='bg-[#201A31] rounded  px-[2vw] py-[1vh] text-[#A0A0A0]'>   {uploading ? (
               <p>{`Uploading: ${percent}% done`}</p>

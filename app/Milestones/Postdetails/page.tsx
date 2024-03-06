@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { CiLocationOn, CiClock2 } from "react-icons/ci";
-
+import edit from '@/public/edit.png'
 import { FaMoneyBill, FaDesktop, FaIndianRupeeSign } from "react-icons/fa6";
 
 import { GiSkills } from "react-icons/gi";
@@ -49,13 +49,12 @@ const Viewjobpost: React.FC<{ loading: boolean }> = () => {
   }, []);
 
   const fetchPosts = async () => {
-    const q = query(collection(db, "blogPosts"), orderBy("date", "asc"));
+    const q = query(collection(db, "milestones"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let postsArr: { id: string }[] = [];
       querySnapshot.forEach((doc) => {
         postsArr.push({ ...doc.data(), id: doc.id });
       });
-      console.log(postsArr);
       setPost(postsArr);
       setLoading(false);
     });
@@ -67,7 +66,7 @@ const Viewjobpost: React.FC<{ loading: boolean }> = () => {
   return (
     <main className={"grid place-items-center items-center"}>
       <div className={"border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika"}>
-        <Link href={"/Videoposts"} className="flex flex-col justify-center items-center">
+        <Link href={"/Milestones"} className="flex flex-col justify-center items-center">
           <span
             className={
               pathname === "/"
@@ -90,15 +89,15 @@ const Viewjobpost: React.FC<{ loading: boolean }> = () => {
           ></span>
         </Link>
         <Link
-          href={"/Videoposts/Postdetails"}
+          href={"/Milestones/Postdetails"}
           className="flex flex-col justify-center items-center"
         >
-          <span className={pathname === "/Videoposts/Postdetails" ? " text-[#0DF5E3]" : ""}>
+          <span className={pathname === "/Milestones/Postdetails" ? " text-[#0DF5E3]" : ""}>
           Updated Blogs
           </span>
           <span
             className={
-              pathname === "/Videoposts/Postdetails"
+              pathname === "/Milestones/Postdetails"
                 ? "p-[1.5px] w-[40px] bg-[#0DF5E3]"
                 : "p-[1.5px] w-[40px] bg-[#ffff]"
             }
@@ -133,16 +132,21 @@ const Viewjobpost: React.FC<{ loading: boolean }> = () => {
           {post &&
             post.map(
               (post: {
+                id: any;
                 date: ReactNode;
                 tagline: ReactNode;
                 title: ReactNode;
                 imageUrl: ReactNode;
-                author: ReactNode;
+                // author: ReactNode;
                 content: ReactNode;
               }) => {
                 return (
-                  <Link href="/">
-                    <div className="flex border-b border-gray-300 items-center justify-between py-10">
+                       <>
+    <Link href={`/Milestones/Postdetails/${post.id}`} className="float-end">
+                                <button className='flex px-6 py-1 mt-6 rounded-full'><Image src={edit} alt='edit' />Edit</button>
+                            </Link>
+                    <div className="flex border-b gap-5 border-gray-300 items-center justify-between py-10">
+                      
                       <div className="w-3/12">
                         {typeof post.imageUrl === "string" &&
                         post.imageUrl.includes(".mp4") ? (
@@ -161,22 +165,24 @@ const Viewjobpost: React.FC<{ loading: boolean }> = () => {
                           />
                         )}
                       </div>
+                  
                       <div className="w-9/12">
                       <h1 className="text-xl font-bold">{post.title}</h1>
                       <h1 className="text-lg font-bold text-gray-500">{post.tagline}</h1>
                       <div className="pt-2" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
-                      {/* <h1 className="pt-2">{post.content}</h1> */}
-                        <h1 className="float-right px-20"> - {post.author}</h1>
+                      <h1 className="pt-2">{post.date}</h1>
+                        {/* <h1 className="float-right px-20"> - {post.author}</h1> */}
                       </div>
                     </div>
-                  </Link>
+                       </>
+                 
                 );
               }
             )}
         </section>
       )}
       <div className="flex flex-row w-full justify-end gap-5 px-6 py-6 font-Inika">
-        <Link href={"/Videoposts"}>
+        <Link href={"/Milestones"}>
           <button className="bg-[#ffffff] shadow-md shadow-gray-400 rounded px-[2vw] py-[1vh] text-[#201A31] float-end">
             Back
           </button>

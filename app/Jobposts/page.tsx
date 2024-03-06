@@ -1,8 +1,7 @@
 "use client"
 import React, { ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from "framer-motion";
+
 import {
     CiLocationOn,
     CiClock2,
@@ -15,49 +14,37 @@ import {
 } from "react-icons/fa6";
 
 import { GiSkills } from "react-icons/gi";
-import check from '@/public/Checkmark.png';
 import { usePathname } from 'next/navigation';
 import { DocumentData, collection, doc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../firebase.config';
 
-interface post {
-    jobtitle: string;
-    location: string;
-    type: string;
-    jobtype: string;
-    duration: string;
-    payroll: string;
-    skills: string[];
-    email: string;
-    description: string;
-    status: string;
-    timestamp: Date;
-    daysSinceLastUpdate: string
-    count: number
-    // Add other keys as needed
-}
+ // Add other keys as needed
 
 const Viewjobpost: React.FC<{ loading: boolean }> = () => {
     const [post, setPost] = useState<DocumentData | null>(null);
     const [loading, setLoading] = useState<boolean | null>(null);
+    const [isClient, setIsClient] = useState(false)
 
     useEffect(() => {
         fetchData();
     }, []);
 
     const fetchData = async () => {
-        const q = query(collection(db, 'JobList'));
         try {
-            setLoading(true);
+            const q = query(collection(db, 'JobList'));
             const querySnapshot = await getDocs(q);
-            let posts: { id: string; daysSinceLastUpdate: string; count: number }[] = [];
-
-            // Fetch application count for each job post in parallel
-            const postPromises = querySnapshot.docs.map(async (doc) => {
-                const q = query(collection(db, 'application'), where('jobid', '==', doc.data().id));
-                const querySnapshot = await getDocs(q);
-                const count = querySnapshot.size;
-
+            const postsData = [];
+    
+            for (const doc of querySnapshot.docs) {
+                const data = doc.data();
+                let count = 0;
+    
+                if (data.id !== undefined) {
+                    const q = query(collection(db, 'application'), where('jobid', '==', data.id));
+                    const querySnapshot = await getDocs(q);
+                    count = querySnapshot.size;
+                }
+    
                 const lastUpdate = doc.data().timestamp.toDate();
                 const currentDate = new Date();
 
@@ -74,21 +61,26 @@ const Viewjobpost: React.FC<{ loading: boolean }> = () => {
                 } else {
                     daysSinceLastUpdate = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
                 }
+                const post = {
+                    ...data,
+                    id: doc.id,
+                    count,
+                    daysSinceLastUpdate
 
-                return { ...doc.data(), id: doc.id, daysSinceLastUpdate, count };
-            });
-
-            const postsData = await Promise.all(postPromises);
-            posts = postsData;
-
-            setPost(posts);
-            window.localStorage.setItem("jobposts", JSON.stringify(posts));
+                };
+                
+                postsData.push(post);
+            }
+            
+            setPost(postsData);
+            window.localStorage.setItem("jobposts", JSON.stringify(postsData));
             setLoading(false);
         } catch (error) {
             console.error('Error fetching documents: ', error);
             setLoading(false);
         }
     };
+    
 
 
 
@@ -103,7 +95,11 @@ const Viewjobpost: React.FC<{ loading: boolean }> = () => {
     // };
     const pathname = usePathname()
     return (
+      
+        <div>
+            
         <main className={'grid place-items-center items-center'}>
+            
             <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
                 <Link href={'/'} className='flex flex-col justify-center items-center'>
                     <span className={pathname === '/' ? ' text-[#0DF5E3]' : pathname === '/Previewjobpost' ? 'text-[#0DF5E3]' : ""}>Post a Job</span>
@@ -205,8 +201,10 @@ const Viewjobpost: React.FC<{ loading: boolean }> = () => {
                     </button>
                 </Link>
             </div>
-
+            
         </main>
+
+        </div>
     )
 }
 
