@@ -1,8 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import TextEditor, { EditorContentChanged } from '../../../../Jobpost/texteditor'
-import vector from '@/public/vector x.png'
-import vector1 from '@/public/vector +.png'
+import vector from '@/public/Vector2.png'
+import vector1 from '@/public/Vector1.png'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
