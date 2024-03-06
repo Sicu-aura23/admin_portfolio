@@ -36,7 +36,7 @@ interface post {
     // Add other keys as needed
 }
 
-const page: React.FC<{ loading: boolean; params: any }> = ({ params }) => {
+const page: React.FC<{ params: any }> = ({ params }) => {
     const jobid = params.slug;
     const [loading, setLoading] = useState<boolean | null>(null);
     const [post, setPost] = useState<DocumentData | null>(null);
