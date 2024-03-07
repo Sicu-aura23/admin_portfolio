@@ -2,18 +2,18 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import edit from '@/public/edit.png'
 import {
   DocumentData,
   collection,
-  doc,
-  getDoc,
-  getDocs,
   onSnapshot,
   orderBy,
   query,
-  where,
 } from "firebase/firestore";
 import { db } from "../../firebase.config";
+import Navbar from "@/app/Navbar";
+import { Sidebar } from "@/app/Sidebar";
+import Image from "next/image";
 
 interface post {
   jobtitle: string;
@@ -57,7 +57,11 @@ const Viewjobpost: React.FC<{ }> = () => {
 
   const pathname = usePathname();
   return (
-    <main className={"grid place-items-center items-center"}>
+     <div className=''>
+     <Navbar/>
+  <div className='flex'>
+      <Sidebar/>
+    <main className={"grid place-items-center items-center w-screen"}>
       <div className={"border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika"}>
         <Link href={"/Videoposts"} className="flex flex-col justify-center items-center">
           <span
@@ -125,6 +129,7 @@ const Viewjobpost: React.FC<{ }> = () => {
           {post &&
             post.map(
               (post: {
+                id: any;
                 date: ReactNode;
                 tagline: ReactNode;
                 title: ReactNode;
@@ -133,8 +138,7 @@ const Viewjobpost: React.FC<{ }> = () => {
                 content: ReactNode;
               }) => {
                 return (
-                  <Link href="/">
-                    <div className="flex border-b border-gray-300 items-center justify-between py-10">
+                    <div className="flex border-b border-gray-300 gap-10 items-center justify-between py-10">
                       <div className="w-3/12">
                         {typeof post.imageUrl === "string" &&
                         post.imageUrl.includes(".mp4") ? (
@@ -154,6 +158,9 @@ const Viewjobpost: React.FC<{ }> = () => {
                         )}
                       </div>
                       <div className="w-9/12">
+                      <Link href={`/Videoposts/Postdetails/${post.id}`} >
+                                <button className='flex px-6 py-1 mt-6 rounded-full bg-blue-500 float-end'><Image src={edit} alt='edit' />Edit</button>
+                            </Link>
                       <h1 className="text-xl font-bold">{post.title}</h1>
                       <h1 className="text-lg font-bold text-gray-500">{post.tagline}</h1>
                       <div className="pt-2" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
@@ -161,7 +168,7 @@ const Viewjobpost: React.FC<{ }> = () => {
                         <h1 className="float-right px-20"> - {post.author}</h1>
                       </div>
                     </div>
-                  </Link>
+              
                 );
               }
             )}
@@ -175,6 +182,10 @@ const Viewjobpost: React.FC<{ }> = () => {
         </Link>
       </div>
     </main>
+
+  
+      </div>
+      </div>
   );
 };
 

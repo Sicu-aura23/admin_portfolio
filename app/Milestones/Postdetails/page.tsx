@@ -2,13 +2,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { CiLocationOn, CiClock2 } from "react-icons/ci";
 import edit from '@/public/edit.png'
-import { FaMoneyBill, FaDesktop, FaIndianRupeeSign } from "react-icons/fa6";
-
-import { GiSkills } from "react-icons/gi";
-import check from "@/public/Checkmark.png";
 import { usePathname } from "next/navigation";
 import {
   DocumentData,
@@ -22,6 +16,8 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase.config";
+import Navbar from "@/app/Navbar";
+import { Sidebar } from "@/app/Sidebar";
 
 interface post {
   jobtitle: string;
@@ -64,7 +60,11 @@ const Viewjobpost: React.FC<{ }> = () => {
 
   const pathname = usePathname();
   return (
-    <main className={"grid place-items-center items-center"}>
+     <div className=''>
+     <Navbar/>
+  <div className='flex'>
+      <Sidebar/>
+    <main className={"grid place-items-center items-center w-screen"}>
       <div className={"border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika"}>
         <Link href={"/Milestones"} className="flex flex-col justify-center items-center">
           <span
@@ -137,14 +137,17 @@ const Viewjobpost: React.FC<{ }> = () => {
                 tagline: ReactNode;
                 title: ReactNode;
                 imageUrl: ReactNode;
-                // author: ReactNode;
+         
                 content: ReactNode;
               }) => {
                 return (
                        <>
-    <Link href={`/Milestones/Postdetails/${post.id}`} className="float-end">
-                                <button className='flex px-6 py-1 mt-6 rounded-full'><Image src={edit} alt='edit' />Edit</button>
+                       <div className="float-end flex flex-col items-center">
+    <Link href={`/Milestones/Postdetails/${post.id}`} >
+                                <button className='flex px-6 py-1 mt-6 rounded-full bg-blue-500'><Image src={edit} alt='edit' />Edit</button>
                             </Link>
+                       
+                       </div>
                     <div className="flex border-b gap-5 border-gray-300 items-center justify-between py-10">
                       
                       <div className="w-3/12">
@@ -171,7 +174,7 @@ const Viewjobpost: React.FC<{ }> = () => {
                       <h1 className="text-lg font-bold text-gray-500">{post.tagline}</h1>
                       <div className="pt-2" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
                       <h1 className="pt-2">{post.date}</h1>
-                        {/* <h1 className="float-right px-20"> - {post.author}</h1> */}
+              
                       </div>
                     </div>
                        </>
@@ -189,6 +192,10 @@ const Viewjobpost: React.FC<{ }> = () => {
         </Link>
       </div>
     </main>
+
+  
+      </div>
+      </div>
   );
 };
 

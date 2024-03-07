@@ -17,6 +17,8 @@ import { GiSkills } from "react-icons/gi";
 import { usePathname } from 'next/navigation';
 import { DocumentData, collection, doc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../firebase.config';
+import Navbar from '../Navbar';
+import { Sidebar } from '../Sidebar';
 
  // Add other keys as needed
 
@@ -30,6 +32,7 @@ const Viewjobpost: React.FC<{}> = () => {
     }, []);
 
     const fetchData = async () => {
+        setLoading(true)
         try {
             const q = query(collection(db, 'JobList'));
             const querySnapshot = await getDocs(q);
@@ -95,15 +98,16 @@ const Viewjobpost: React.FC<{}> = () => {
     // };
     const pathname = usePathname()
     return (
-      
-        <div>
-            
-        <main className={'grid place-items-center items-center'}>
+      <div className=''>
+           <Navbar/>
+        <div className='flex'>
+            <Sidebar/>
+        <main className={'grid place-items-center items-center w-[100%] '}>
             
             <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
-                <Link href={'/'} className='flex flex-col justify-center items-center'>
-                    <span className={pathname === '/' ? ' text-[#0DF5E3]' : pathname === '/Previewjobpost' ? 'text-[#0DF5E3]' : ""}>Post a Job</span>
-                    <span className={pathname === '/' ? 'p-[1.5px] w-[40px] bg-[#0DF5E3]' : pathname === '/Previewjobpost' ? 'p-[1.5px] w-[40px] bg-[#0DF5E3]' : "bg-[#ffff]"}></span>
+                <Link href={'/Postjob'} className='flex flex-col justify-center items-center'>
+                    <span className={pathname === '/Postjob' ? ' text-[#0DF5E3]' : pathname === '/Previewjobpost' ? 'text-[#0DF5E3]' : ""}>Post a Job</span>
+                    <span className={pathname === '/Postjob' ? 'p-[1.5px] w-[40px] bg-[#0DF5E3]' : pathname === '/Previewjobpost' ? 'p-[1.5px] w-[40px] bg-[#0DF5E3]' : "bg-[#ffff]"}></span>
                 </Link>
                 <Link href={'/Jobposts'} className='flex flex-col justify-center items-center'>
                     <span className={pathname === '/Jobposts' ? ' text-[#0DF5E3]' : ''}>Job-post Details</span>
@@ -135,7 +139,7 @@ const Viewjobpost: React.FC<{}> = () => {
                         <span className="sr-only">Loading...</span>
                     </div>
                 ) :
-                    <section className='w-[95%] h-[55vh] overflow-y-scroll px-10 my-6 border rounded-lg text-black'>
+                    <section className='w-[95%] overflow-y-scroll px-10 my-6 border rounded-lg text-black'>
 
                         {
                             post && post.map((post: {
@@ -205,6 +209,7 @@ const Viewjobpost: React.FC<{}> = () => {
         </main>
 
         </div>
+      </div>
     )
 }
 

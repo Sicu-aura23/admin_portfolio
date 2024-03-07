@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { db, firestore, storage } from '../../../firebase.config';
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import Navbar from '@/app/Navbar';
+import { Sidebar } from '@/app/Sidebar';
 
 export interface EditorProps {
   value?: string;
@@ -180,11 +182,15 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const pathname = usePathname()
 
   return (
-    <main className={'flex flex-col items-center '}>
+     <div className=''>
+     <Navbar/>
+  <div className='flex'>
+      <Sidebar/>
+    <main className={'flex flex-col items-center w-screen'}>
           <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
         <Link href={'Milestones'} className='flex flex-col justify-center items-center'>
-        <span className={pathname==='/Milestones'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a images</span>
-        <span className={pathname==='/Milestones'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
+        <span className={pathname===`/Milestones/Postdetails/${postid}`?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a images</span>
+        <span className={pathname==='/Milestones'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname===`/Milestones/Postdetails/${postid}`?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
         </Link>
         <Link href={'/Milestones/Postdetails'} className='flex flex-col justify-center items-center'>
         <span className={pathname==='/Jobposts'?' text-[#0DF5E3]':''}>Updated posts</span>
@@ -225,6 +231,10 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
            </button>
         </form>
     </main>
+
+  
+      </div>
+      </div>
   )
 }
 

@@ -19,6 +19,8 @@ import check from '@/public/Checkmark.png';
 import { usePathname, useRouter } from 'next/navigation';
 import app, { db } from '../../firebase.config';
 import { DocumentData, addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import Navbar from '@/app/Navbar';
+import { Sidebar } from '@/app/Sidebar';
 
 interface post {
     jobtitle: string;
@@ -78,11 +80,16 @@ const page: React.FC<{params:any }> = ({params}) => {
     
     const pathname = usePathname()
     return (
-        <main className={'grid place-items-center items-center'}>
+         <div className=''>
+         <Navbar/>
+      <div className='flex'>
+          <Sidebar/>
+
+        <main className={'grid place-items-center items-center w-screen'}>
         <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
-      <Link href={'/'} className='flex flex-col justify-center items-center'>
-      <span className={pathname==='/'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
-      <span className={pathname==='/'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
+      <Link href={'/Postjob'} className='flex flex-col justify-center items-center'>
+      <span className={pathname==='/Postjob'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
+      <span className={pathname==='/Postjob'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
       </Link>
       <Link href={'/Jobposts'} className='flex flex-col justify-center items-center'>
     <span className={pathname==='/Jobposts'?' text-[#0DF5E3]':pathname===`/Jobposts/${jobid}`?'text-[#0DF5E3]':""}>Job-post Details</span>
@@ -177,6 +184,8 @@ const page: React.FC<{params:any }> = ({params}) => {
           </div>
           
       </main>
+          </div>
+          </div>
     )
 }
 

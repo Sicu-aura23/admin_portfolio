@@ -5,6 +5,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { firestore, storage } from '../firebase.config';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import Navbar from '../Navbar';
+import { Sidebar } from '../Sidebar';
 
 export interface EditorProps {
   value?: string;
@@ -125,7 +127,12 @@ if(type ==='file'){
     const pathname = usePathname()
 
   return (
-    <main className={'flex flex-col items-center '}>
+     <div className=''>
+     <Navbar/>
+  <div className='flex'>
+      <Sidebar/>
+
+    <main className={'flex flex-col items-center w-screen '}>
           <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
         <Link href={'/'} className='flex flex-col justify-center items-center'>
         <span className={pathname==='/Videoposts'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a blogs</span>
@@ -170,6 +177,9 @@ if(type ==='file'){
            </button>
         </form>
     </main>
+  
+      </div>
+      </div>
   )
 }
 

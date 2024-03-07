@@ -15,30 +15,30 @@ export const Sidebar = () => {
   const pathname = usePathname()
   return (
     
-    <div className={'w-20 text-white flex flex-col gap-20 pt-20  bg-[#020E1B]'}>
-      <Link href={'/'} className='flex gap-3'>
-        <Image src={pathname==='/'?line:pathname==='/Previewjobpost'?line:pathname==='/Jobposts'?line:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9'?line:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9/Applicants'?line:""}  alt=''/>
+    <div className={'w-20 text-white flex flex-col gap-20 pt-20 h-screen bg-[#020E1B]'}>
+      <Link href={'/Postjob'} className='flex gap-3'>
+        <Image src={pathname==='/Postjob'?line:pathname==='/Previewjobpost'?line:pathname==='/Jobposts'?line:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9'?line:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9/Applicants'?line:""}  alt=''/>
         
       <div className='flex flex-col items-center'>
-       <Image src={pathname==='/'?jobcolor:pathname==='/Previewjobpost'?jobcolor:pathname==='/Jobposts'?jobcolor:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9'?jobcolor:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9/Applicants'?jobcolor:job}  alt='job'/>
+       <Image src={pathname==='/Postjob'?jobcolor:pathname==='/Previewjobpost'?jobcolor:pathname==='/Jobposts'?jobcolor:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9'?jobcolor:pathname==='/Jobposts/Hfh4Rrg4XpRvZ91jR3a9/Applicants'?jobcolor:job}  alt='job'/>
        <span className='text-xs'>Job Post</span>
       </div>
 
       </Link>
       <div className='flex gap-5'>
-      <Image src={pathname==='/Videoposts'?line:pathname==='/Videoposts/Postdetails'?line:""}  alt=''/>
+      <Image src={pathname==='/Videoposts'?line:pathname==='/Videoposts/Postdetails'?line:pathname.includes('/Videoposts/Postdetails')?line:""}  alt=''/>
         
       <Link href={'/Videoposts'} className='flex flex-col  items-center'>
-       <Image src={pathname==='/Videoposts'?videocolor:pathname==='/Videoposts/Postdetails'?videocolor:video}  alt='video'/>
+       <Image src={pathname==='/Videoposts'?videocolor:pathname==='/Videoposts/Postdetails'?videocolor:pathname.includes('/Videoposts/Postdetails/')?videocolor:video}  alt='video'/>
        <span className='text-xs'>Video</span>
       </Link>
 
       </div>
       <Link href={'/Milestones'} className='flex gap-6'>
-      <Image src={pathname==='/Milestones'?line:pathname==='/Milestones/Postdetails'?line:""}  alt=''/>
+      <Image src={pathname==='/Milestones'?line:pathname==='/Milestones/Postdetails'?line:pathname.includes('/Milestones/Postdetails/')?line:""}  alt=''/>
         
       <Link href={'/Milestones'} className='flex flex-col  items-center'>
-       <Image src={pathname==='/Milestones'?IMGcolor:pathname==='/Milestones/Postdetails'?IMGcolor:IMG}  alt='job'/>
+       <Image src={pathname==='/Milestones'?IMGcolor:pathname==='/Milestones/Postdetails'?IMGcolor:pathname.includes('/Milestones/Postdetails/')?IMGcolor:IMG}  alt='job'/>
        <span className='text-xs'>Post</span>
       </Link>
 

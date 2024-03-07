@@ -20,6 +20,8 @@ import { usePathname } from 'next/navigation';
 import app, { db } from '../firebase.config';
 import { DocumentData, addDoc, collection, doc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
+import Navbar from '../Navbar';
+import { Sidebar } from '../Sidebar';
 
 interface FormData {
     jobtitle: string;
@@ -67,7 +69,11 @@ const Viewjobpost: React.FC<{}> = () => {
     
     const pathname = usePathname()
     return (
-        <main className={'grid place-items-center items-center'}>
+           <div className=''>
+           <Navbar/>
+        <div className='flex'>
+            <Sidebar/>
+        <main className={'grid place-items-center items-center w-screen'}>
         <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
         <Link href={'/'} className='flex flex-col justify-center items-center'>
         <span className={pathname==='/'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
@@ -101,7 +107,7 @@ const Viewjobpost: React.FC<{}> = () => {
                 </div>
             </section>
             <div className='flex flex-row w-full justify-end gap-5 px-6 py-6 font-Inika'>
-                <Link href={'/'}>
+                <Link href={'/Postjob'}>
                     <button className='bg-[#ffffff] shadow-md shadow-gray-400 rounded px-[2vw] py-[1vh] text-[#201A31] float-end'>
                         Back
                     </button>
@@ -126,6 +132,8 @@ const Viewjobpost: React.FC<{}> = () => {
                 </motion.div>
             )}
         </main>
+            </div>
+            </div>
     )
 }
 
