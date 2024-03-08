@@ -1,17 +1,23 @@
 "use client"
-import React, { useState } from 'react';
-import TextEditor, { EditorContentChanged } from '../Jobpost/texteditor'
+import React, { useEffect, useState } from 'react';
+const TextEditor = dynamic(
+  () => {
+    return import("../Jobpost/texteditor");
+  },
+  { ssr: false }
+)
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { firestore, storage } from '../firebase.config';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import Navbar from '../Navbar';
 import { Sidebar } from '../Sidebar';
+import dynamic from 'next/dynamic';
 
-export interface EditorProps {
-  value?: string;
-  onChange?: (changes: EditorContentChanged) => void;
-}
+// export interface EditorProps {
+//   value?: string;
+//   onChange?: (changes: EditorContentChanged) => void;
+// }
 const videopost = () => {
   const [editorValue, setEditorValue] = useState<string>("");
   const [loading, setLoading] = useState<boolean | null>(null);
@@ -39,6 +45,13 @@ const videopost = () => {
       };
     }
   })
+  useEffect(() => {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (!isLoggedIn) {
+      router.push('/');
+    }
+
+}, []);
 
   const handleInputChange = (event: { target: { value?: any; name?: any;files?: any;type?: any; }; }) => {
     const { name, value,files,type } = event.target;

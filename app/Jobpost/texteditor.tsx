@@ -27,7 +27,7 @@ const modules = {
       [{ header: [1, 2, 3, 4, 5, 6] }, { font: ["Inika", "Kode Mono", "Arial", "Asap", "Kadwa"] }],
       [{ size: [] }],
       ["bold", "italic", "underline"],
-      [{ list: "ordered" }, { list: "bullet" }],
+      [{ list: "ordered" }, { list: "bullet" }, { list: "upper-alpha" }],
       ["link"],
       ["emoji"],
       [{ align: [] }],
@@ -49,6 +49,7 @@ const formats = [
   "blockquote",
   "list",
   "bullet",
+  "upper-alpha",
   "indent",
   "link",
   "image",
@@ -57,7 +58,15 @@ const formats = [
   "style",
   "align",
 ];
-
+const customCSS = `
+  .ql-indent-1 {
+    padding-left: 3em;
+    list-style-type: upper-alpha;
+  }
+  .ql-indent-1 li::before {
+    content: counter(list-0, upper-alpha) '. ';
+  }
+`;
 const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
   const [editorHtml, setEditorHtml] = useState(value || "");
 
@@ -74,6 +83,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
 
   return (
     <div className="text-editor w-[100%]">
+       <style>{customCSS}</style>
       <ReactQuill
         className=" max-w-screen h-[35vh]"
         placeholder="Type job description here"

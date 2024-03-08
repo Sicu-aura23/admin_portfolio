@@ -43,6 +43,10 @@ const page: React.FC<{params:any }> = ({params}) => {
     const [post, setPost] = useState<DocumentData | null>(null);
 
     useEffect(() => {
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        if (!isLoggedIn) {
+          router.push('/');
+        }
         setLoading(true)
         const formDataFromLocalStorage = JSON.parse(window.localStorage.getItem("jobposts") || "[]");
         const filteredData = formDataFromLocalStorage.filter((data: { id: any; }) => data.id === jobid);
@@ -50,7 +54,7 @@ const page: React.FC<{params:any }> = ({params}) => {
         setLoading(false)
     }, []);
     
-   
+
   
     const closethejob = async () => {
         try {

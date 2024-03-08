@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import bg from '@/public/Group.png'
 import user from '@/public/clarity_id-badge-line.png'
 import pass from '@/public/mdi_password-off-outline.png'
@@ -20,35 +20,56 @@ const page = () => {
   const [error, setError] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
+  useEffect(() => {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    const expiryTime = sessionStorage.getItem('expiryTime');
+    const currentTime = Date.now();
+
+    if (isLoggedIn && expiryTime) {
+      if (currentTime > parseInt(expiryTime, 10)) {
+        // Clear session storage and redirect to home page
+        sessionStorage.removeItem('isLoggedIn');
+        sessionStorage.removeItem('expiryTime');
+        router.push('/');
+      }
+    } else {
+      // Redirect to home page if not logged in
+      router.push('/');
+    }
+  }, []);
+
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
- setLoading(true)
+    setLoading(true);
+
     const db = getFirestore(firebaseApp);
     const q = query(collection(db, 'admin'));
-  
+
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let adminFound = false;
       querySnapshot.forEach((doc) => {
         const adminData = doc.data();
-        console.log(adminData)
         if (adminData.user === userId && adminData.password === password && adminData.code === accessCode) {
           adminFound = true;
           console.log('Login successful');
+          const expiryTime = Date.now() + 86400000; // 1 day expiry time
+          sessionStorage.setItem('isLoggedIn', 'true'); // Set isLoggedIn flag in sessionStorage
+          sessionStorage.setItem('expiryTime', expiryTime.toString()); // Set expiry time in sessionStorage
           router.push('/Postjob');
         }
       });
-  setLoading(false)
+
       if (!adminFound) {
         console.log('User not found or invalid credentials');
         alert('User not found or invalid credentials');
-        setLoading(false)
       }
+
+      setLoading(false);
     });
-  
+
     return () => unsubscribe();
   };
 
-  // Function to check if any input field is empty and disable the button accordingly
   const checkEmptyFields = () => {
     if (userId.trim() === '' || password.trim() === '' || accessCode.trim() === '') {
       setButtonDisabled(true);

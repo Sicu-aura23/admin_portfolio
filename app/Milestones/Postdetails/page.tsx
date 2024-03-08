@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import {
   DocumentData,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -56,6 +57,19 @@ const Viewjobpost: React.FC<{ }> = () => {
     });
 
     return () => unsubscribe();
+  };
+  const handleDelete = async (postId: string) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this post?');
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      await deleteDoc(doc(db, 'milestones', postId));
+      console.log('Post deleted successfully');
+    } catch (error) {
+      console.error('Error deleting post: ', error);
+    }
   };
 
   const pathname = usePathname();
@@ -146,7 +160,7 @@ const Viewjobpost: React.FC<{ }> = () => {
     <Link href={`/Milestones/Postdetails/${post.id}`} >
                                 <button className='flex px-6 py-1 mt-6 rounded-full bg-blue-500'><Image src={edit} alt='edit' />Edit</button>
                             </Link>
-                       
+                            <button className='flex px-6 py-1 mt-6 rounded-full bg-red-500' onClick={() => handleDelete(post.id)}><Image src={edit} alt='edit' />Edit</button>
                        </div>
                     <div className="flex border-b gap-5 border-gray-300 items-center justify-between py-10">
                       

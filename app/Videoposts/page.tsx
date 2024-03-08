@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextEditor, { EditorContentChanged } from '../Jobpost/texteditor'
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -35,6 +35,14 @@ const videopost = () => {
       };
     }
   })
+
+  useEffect(() => {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (!isLoggedIn) {
+      router.push('/');
+    }
+
+}, []);
 
   const handleInputChange = (event: { target: { value?: any; name?: any;files?: any;type?: any; }; }) => {
     const { name, value,files,type } = event.target;

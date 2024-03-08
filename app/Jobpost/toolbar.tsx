@@ -1,7 +1,7 @@
 import React from "react";
 import { Quill } from "react-quill";
 import 'react-quill/dist/quill.snow.css';
-
+import './quill-toolbar.css'; // Import the custom CSS file
 
 // Undo and redo functions for Custom Toolbar
 function undoChange(this: {
@@ -31,6 +31,11 @@ Font.whitelist = [
   "lucida"
 ];
 Quill.register(Font, true);
+
+// Add upper-alpha to list formats
+const List = Quill.import("formats/list");
+List.whitelist.push("upper-alpha");
+Quill.register(List, true);
 
 // Modules object for setting up the Quill editor
 export const modules = {
@@ -63,6 +68,7 @@ export const formats = [
   "background",
   "list",
   "bullet",
+  "upper-alpha",
   "indent",
   "link",
   "image",
@@ -102,8 +108,7 @@ const QuillToolbar: React.FC = () => (
     <span className="ql-formats">
       <button className="ql-list" value="ordered" />
       <button className="ql-list" value="bullet" />
-      <button className="ql-indent" value="-1" />
-      <button className="ql-indent" value="+1" />
+      <button className="ql-list" id="upper" value="upper-alpha">A</button>
     </span>
 
     <span className="ql-formats">

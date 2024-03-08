@@ -69,9 +69,20 @@ padding: 0;
     font-family: "Kadwa", cursive;
     content: "Kadwa" !important;
 }
-.ql-editor ol li::before {
-  content: counter(list-0, upper-alpha) '. ' !important;
+.ql-editor ol li:before {
+  content: counter(list-0, lower-alpha) '. ';
 }
+
+/* Change the list item content when the checkbox is checked */
+.ql-editor ol li:after {
+  content: counter(list-0, upper-alpha) '. ';
+}
+/* .ql-editor ol li::before {
+  content: counter(list-1, upper-alpha) '. ' !important;
+} */
+/* #upper {
+  content:'A'!important;
+} */
 
 
 .ql-container {
@@ -79,11 +90,13 @@ padding: 0;
   border-top: 1px solid rgb(207, 206, 206) !important; */
   border: none !important;
   width:100%;
+  /* box-shadow: inset 0px -5px 10px -5px rgba(0, 0, 0, 0.1); */
 }
 .quill{
   position: relative !important;
   border: 1px solid rgb(207, 206, 206) !important;
   border-radius: 5px 5px;
+  padding:0px 0px 40px 0px;
 }
 .ql-toolbar{
   border-radius: 5px 5px;

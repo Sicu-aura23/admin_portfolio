@@ -43,12 +43,14 @@ const Viewjobpost: React.FC<{}> = () => {
     const router = useRouter();
 
     useEffect(() => {
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        if (!isLoggedIn) {
+          router.push('/');
+        }
         const formDataFromLocalStorage = JSON.parse(window.localStorage.getItem("formdata") || "{}") as FormData;
         setFormData(formDataFromLocalStorage);
         console.log(formDataFromLocalStorage)
     }, []);
-
-
     const postjob = async () => {
         try {
             setLoading(true);

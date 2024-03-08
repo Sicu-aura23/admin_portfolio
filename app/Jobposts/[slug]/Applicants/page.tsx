@@ -18,9 +18,8 @@ import {
 
 import { GiSkills } from "react-icons/gi";
 import check from '@/public/Checkmark.png';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { DocumentData, addDoc, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
-import { useRouter } from 'next/router';
 import { db } from '@/app/firebase.config';
 import Navbar from '@/app/Navbar';
 import { Sidebar } from '@/app/Sidebar';
@@ -39,6 +38,7 @@ interface post {
 }
 
 const page: React.FC<{ params: any }> = ({ params }) => {
+    const router = useRouter();
     const jobid = params.slug;
     const [loading, setLoading] = useState<boolean | null>(null);
     const [post, setPost] = useState<DocumentData | null>(null);
@@ -46,6 +46,10 @@ const page: React.FC<{ params: any }> = ({ params }) => {
     const [count, setCount] = useState<number | null>(null);
 
     useEffect(() => {
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        if (!isLoggedIn) {
+          router.push('/');
+        }
         const fetchData = async () => {
             setLoading(true);
 
@@ -65,6 +69,8 @@ const page: React.FC<{ params: any }> = ({ params }) => {
 
         fetchData();
     }, [jobid]);
+
+    
 
     const getApplications = async (jobid: string) => {
         const q = query(collection(db, 'application'), where('jobid', '==', jobid));

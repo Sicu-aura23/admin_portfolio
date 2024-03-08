@@ -1,6 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import TextEditor, { EditorContentChanged } from '../../../../Jobpost/texteditor'
+const TextEditor = dynamic(
+  () => {
+    return import("../../../../Jobpost/texteditor");
+  },
+  { ssr: false }
+)
 import vector from '@/public/Vector2.png'
 import vector1 from '@/public/Vector1.png'
 import Image from 'next/image'
@@ -12,11 +17,12 @@ import { motion } from "framer-motion";
 import check from '@/public/Checkmark.png';
 import Navbar from '@/app/Navbar';
 import { Sidebar } from '@/app/Sidebar';
+import dynamic from 'next/dynamic';
 
-export interface EditorProps {
-  value?: string;
-  onChange?: (changes: EditorContentChanged) => void;
-}
+// export interface EditorProps {
+//   value?: string;
+//   onChange?: (changes: EditorContentChanged) => void;
+// }
 
 const edit: React.FC<{ params: any }> = ({params}) => {
     const jobid = params.slug
@@ -53,12 +59,7 @@ const edit: React.FC<{ params: any }> = ({params}) => {
     setSkills(newSkills);
   };
 
-  const [formData, setFormData] = useState(() => {
-    const savedData = localStorage.getItem('formData');
-    if (savedData) {
-      return JSON.parse(savedData);
-    } else {
-      return {
+  const [formData, setFormData] = useState( {
         jobtitle: '',
         location: 'Kolkata, West Bengal, India',
         type: 'Internship',
@@ -70,8 +71,6 @@ const edit: React.FC<{ params: any }> = ({params}) => {
         description: '',
         status:'Active',
         lookingfor:'',
-      };
-    }
   });
 
   const handleInputChange = (event: { target: { value?: any; name?: any; }; }) => {
@@ -100,7 +99,7 @@ const edit: React.FC<{ params: any }> = ({params}) => {
   
       try {
           setLoading(true);
-          const docRef = doc(db, 'JobList', jobid); // 'jobid' is the ID of the document you want to update
+          const docRef = doc(db, 'JobList', jobid); 
           await updateDoc(docRef, updatedFormData);
           console.log('Document updated successfully');
           setLoading(false);
@@ -111,18 +110,6 @@ const edit: React.FC<{ params: any }> = ({params}) => {
           setopen(true)
       }
   
-      setFormData({
-          jobtitle: '',
-          location: '',
-          type: '',
-          jobtype: '',
-          duration: '',
-          payroll: '',
-          skills: [],
-          email: '',
-          description: '',
-          lookingfor:'',
-      });
   };
   
   const pathname = usePathname()
@@ -135,8 +122,8 @@ const edit: React.FC<{ params: any }> = ({params}) => {
     <main className={'grid place-items-center items-center w-screen'}>
           <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
         <Link href={'/Postjob'} className='flex flex-col justify-center items-center'>
-        <span className={pathname==='/Postjob'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
-        <span className={pathname==='/Postjob'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
+        <span className={pathname===`/Jobposts/${jobid}/Applicants/Edit`?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
+        <span className={pathname===`/Jobposts/${jobid}/Applicants/Edit`?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
         </Link>
         <Link href={'/Jobposts'} className='flex flex-col justify-center items-center'>
         <span className={pathname==='/Jobposts'?' text-[#0DF5E3]':''}>Job-post Details</span>

@@ -6,6 +6,9 @@ import edit from '@/public/edit.png'
 import {
   DocumentData,
   collection,
+  deleteDoc,
+  doc,
+  getFirestore,
   onSnapshot,
   orderBy,
   query,
@@ -56,6 +59,19 @@ const Viewjobpost: React.FC<{ }> = () => {
   };
 
   const pathname = usePathname();
+  const handleDelete = async (postId: string) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this post?');
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      await deleteDoc(doc(db, 'blogPosts', postId));
+      console.log('Post deleted successfully');
+    } catch (error) {
+      console.error('Error deleting post: ', error);
+    }
+  };
   return (
      <div className=''>
      <Navbar/>
@@ -158,9 +174,11 @@ const Viewjobpost: React.FC<{ }> = () => {
                         )}
                       </div>
                       <div className="w-9/12">
+                                <button className='flex px-6 mx-3 py-1 mt-6 rounded-full bg-red-500 float-end' onClick={() => handleDelete(post.id)} ><Image src={edit} alt='edit' />Delete</button>
                       <Link href={`/Videoposts/Postdetails/${post.id}`} >
                                 <button className='flex px-6 py-1 mt-6 rounded-full bg-blue-500 float-end'><Image src={edit} alt='edit' />Edit</button>
                             </Link>
+                         
                       <h1 className="text-xl font-bold">{post.title}</h1>
                       <h1 className="text-lg font-bold text-gray-500">{post.tagline}</h1>
                       <div className="pt-2" dangerouslySetInnerHTML={{ __html: post.content || '' }} />

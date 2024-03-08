@@ -1,6 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import TextEditor, { EditorContentChanged } from '../../../Jobpost/texteditor'
+const TextEditor = dynamic(
+  () => {
+    return import("../../../Jobpost/texteditor");
+  },
+  { ssr: false }
+)
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { db, firestore, storage } from '../../../firebase.config';
@@ -8,11 +13,12 @@ import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebas
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import Navbar from '@/app/Navbar';
 import { Sidebar } from '@/app/Sidebar';
+import dynamic from 'next/dynamic';
 
-export interface EditorProps {
-  value?: string;
-  onChange?: (changes: EditorContentChanged) => void;
-}
+// export interface EditorProps {
+//   value?: string;
+//   onChange?: (changes: EditorContentChanged) => void;
+// }
 const videopost: React.FC<{params:any }> = ({params}) => {
     const postid = params.slug
   const [editorValue, setEditorValue] = useState<string>("");

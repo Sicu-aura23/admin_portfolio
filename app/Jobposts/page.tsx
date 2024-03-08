@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa6";
 
 import { GiSkills } from "react-icons/gi";
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { DocumentData, collection, doc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import Navbar from '../Navbar';
@@ -26,76 +26,69 @@ const Viewjobpost: React.FC<{}> = () => {
     const [post, setPost] = useState<DocumentData | null>(null);
     const [loading, setLoading] = useState<boolean | null>(null);
     const [isClient, setIsClient] = useState(false)
-
+    
+    const router = useRouter();
     useEffect(() => {
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        if (!isLoggedIn) {
+          router.push('/');
+        }
+        const fetchData = async () => {
+            setLoading(true)
+            try {
+                const q = query(collection(db, 'JobList'));
+                const querySnapshot = await getDocs(q);
+                const postsData = [];
+        
+                for (const doc of querySnapshot.docs) {
+                    const data = doc.data();
+                    let count = 0;
+        
+                    if (data.id !== undefined) {
+                        const q = query(collection(db, 'application'), where('jobid', '==', data.id));
+                        const querySnapshot = await getDocs(q);
+                        count = querySnapshot.size;
+                    }
+        
+                    const lastUpdate = doc.data().timestamp.toDate();
+                    const currentDate = new Date();
+    
+                    const diffInMs = currentDate.getTime() - lastUpdate.getTime();
+                    const days = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diffInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60));
+    
+                    let daysSinceLastUpdate: string;
+                    if (days > 0) {
+                        daysSinceLastUpdate = `${days} day${days > 1 ? 's' : ''} ago`;
+                    } else if (hours > 0) {
+                        daysSinceLastUpdate = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                    } else {
+                        daysSinceLastUpdate = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+                    }
+                    const post = {
+                        ...data,
+                        id: doc.id,
+                        count,
+                        daysSinceLastUpdate
+    
+                    };
+                    
+                    postsData.push(post);
+                }
+                
+                setPost(postsData);
+                window.localStorage.setItem("jobposts", JSON.stringify(postsData));
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching documents: ', error);
+                setLoading(false);
+            }
+        };
         fetchData();
     }, []);
 
-    const fetchData = async () => {
-        setLoading(true)
-        try {
-            const q = query(collection(db, 'JobList'));
-            const querySnapshot = await getDocs(q);
-            const postsData = [];
-    
-            for (const doc of querySnapshot.docs) {
-                const data = doc.data();
-                let count = 0;
-    
-                if (data.id !== undefined) {
-                    const q = query(collection(db, 'application'), where('jobid', '==', data.id));
-                    const querySnapshot = await getDocs(q);
-                    count = querySnapshot.size;
-                }
-    
-                const lastUpdate = doc.data().timestamp.toDate();
-                const currentDate = new Date();
 
-                const diffInMs = currentDate.getTime() - lastUpdate.getTime();
-                const days = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diffInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60));
-
-                let daysSinceLastUpdate: string;
-                if (days > 0) {
-                    daysSinceLastUpdate = `${days} day${days > 1 ? 's' : ''} ago`;
-                } else if (hours > 0) {
-                    daysSinceLastUpdate = `${hours} hour${hours > 1 ? 's' : ''} ago`;
-                } else {
-                    daysSinceLastUpdate = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-                }
-                const post = {
-                    ...data,
-                    id: doc.id,
-                    count,
-                    daysSinceLastUpdate
-
-                };
-                
-                postsData.push(post);
-            }
-            
-            setPost(postsData);
-            window.localStorage.setItem("jobposts", JSON.stringify(postsData));
-            setLoading(false);
-        } catch (error) {
-            console.error('Error fetching documents: ', error);
-            setLoading(false);
-        }
-    };
-    
-
-
-
-    // const fetchJobPost = async () => {
-    //     try {
-    //         const querySnapshot = await getDocs(collection(db, 'JobList'));
-    //         const documentsData = querySnapshot.docs.map(doc => doc.data());
-    //         setPost(documentsData);
-    //     } catch (error) {
-    //         console.error('Error getting documents:', error);
-    //     }
-    // };
     const pathname = usePathname()
     return (
       <div className=''>
