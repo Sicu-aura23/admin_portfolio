@@ -26,10 +26,10 @@ const videopost: React.FC<{params:any }> = ({params}) => {
     year: 'numeric'
   });
   const router = useRouter();
+  const [saveddata,setsaveddata] = useState()
   const [formData, setFormData] = useState(() => {
-    const savedData = localStorage.getItem('formData');
-    if (savedData) {
-      return JSON.parse(savedData);
+    if (saveddata) {
+      return JSON.parse(saveddata);
     } else {
       return {
         title: "",
@@ -42,6 +42,8 @@ const videopost: React.FC<{params:any }> = ({params}) => {
     }
   })
     useEffect(() => {
+      const fdata = window.localStorage.getItem('formData');
+      setsaveddata(fdata ? JSON.parse(fdata) : null);
         const fetchData = async () => {
             try {
               const docRef = doc(db, 'milestones', postid);

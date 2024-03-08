@@ -30,10 +30,10 @@ const videopost = () => {
     year: 'numeric'
   });
   const router = useRouter();
+  const [saveddata,setsaveddata] = useState()
   const [formData, setFormData] = useState(() => {
-    const savedData = localStorage.getItem('formData');
-    if (savedData) {
-      return JSON.parse(savedData);
+    if (saveddata) {
+      return JSON.parse(saveddata);
     } else {
       return {
         title: "",
@@ -50,6 +50,8 @@ const videopost = () => {
     if (!isLoggedIn) {
       router.push('/');
     }
+    const fdata = window.localStorage.getItem('formData');
+    setsaveddata(fdata ? JSON.parse(fdata) : null);
 
 }, []);
 

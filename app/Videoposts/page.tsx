@@ -20,10 +20,10 @@ const videopost = () => {
   const [fileUrl, setFileUrl] = useState('');
   const date = new Date().toISOString().split('T')[0]
   const router = useRouter();
+  const [saveddata,setsaveddata] = useState()
   const [formData, setFormData] = useState(() => {
-    const savedData = localStorage.getItem('formData');
-    if (savedData) {
-      return JSON.parse(savedData);
+    if (saveddata) {
+      return JSON.parse(saveddata);
     } else {
       return {
         title: "",
@@ -41,6 +41,8 @@ const videopost = () => {
     if (!isLoggedIn) {
       router.push('/');
     }
+    const fdata = window.localStorage.getItem('formData');
+    setsaveddata(fdata ? JSON.parse(fdata) : null);
 
 }, []);
 
