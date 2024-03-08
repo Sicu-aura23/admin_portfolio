@@ -160,7 +160,7 @@ const Viewjobpost: React.FC<{ }> = () => {
     <Link href={`/Milestones/Postdetails/${post.id}`} >
                                 <button className='flex px-6 py-1 mt-6 rounded-full bg-blue-500'><Image src={edit} alt='edit' />Edit</button>
                             </Link>
-                            <button className='flex px-6 py-1 mt-6 rounded-full bg-red-500' onClick={() => handleDelete(post.id)}><Image src={edit} alt='edit' />Edit</button>
+                            <button className='flex px-6 py-1 mt-6 rounded-full bg-red-500' onClick={() => handleDelete(post.id)}><Image src={edit} alt='delete' />Delete</button>
                        </div>
                     <div className="flex border-b gap-5 border-gray-300 items-center justify-between py-10">
                       
