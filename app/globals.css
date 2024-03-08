@@ -31,7 +31,12 @@
 body{
 margin: 0;
 padding: 0;
+
 }
+.login-bg {
+  background-image: url('../public/form-bg.png');
+}
+
 
 .ql-picker.ql-font .ql-picker-label[data-value="Arial"]::before, 
 .ql-picker.ql-font .ql-picker-item[data-value="Arial"]::before
