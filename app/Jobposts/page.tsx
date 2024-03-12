@@ -91,11 +91,10 @@ const Viewjobpost: React.FC<{}> = () => {
 
     const pathname = usePathname()
     return (
-      <div className=''>
-           <Navbar/>
         <div className='flex'>
             <Sidebar/>
-        <main className={'grid place-items-center items-center w-[100%] '}>
+        <main className={'flex flex-col items-center w-[100%] '}>
+           <Navbar/>
             
             <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
                 <Link href={'/Postjob'} className='flex flex-col justify-center items-center'>
@@ -132,7 +131,7 @@ const Viewjobpost: React.FC<{}> = () => {
                         <span className="sr-only">Loading...</span>
                     </div>
                 ) :
-                    <section className='w-[95%] overflow-y-scroll px-10 my-6 border rounded-lg text-black'>
+                    <section className='w-[95%] overflow-y-scroll px-10 my-4 border rounded-lg text-black'>
 
                         {
                             post && post.map((post: {
@@ -192,7 +191,7 @@ const Viewjobpost: React.FC<{}> = () => {
 
             }
             <div className='flex flex-row w-full justify-end gap-5 px-6 py-6 font-Inika'>
-                <Link href={'/'}>
+                <Link href={'/Postjob'}>
                     <button className='bg-[#ffffff] shadow-md shadow-gray-400 rounded px-[2vw] py-[1vh] text-[#201A31] float-end'>
                         Back
                     </button>
@@ -202,7 +201,7 @@ const Viewjobpost: React.FC<{}> = () => {
         </main>
 
         </div>
-      </div>
+   
     )
 }
 

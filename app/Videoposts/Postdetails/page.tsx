@@ -3,6 +3,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import edit from '@/public/edit.png'
+import deleteicom from '@/public/delete.png'
 import {
   DocumentData,
   collection,
@@ -73,11 +74,11 @@ const Viewjobpost: React.FC<{ }> = () => {
     }
   };
   return (
-     <div className=''>
-     <Navbar/>
+
   <div className='flex'>
       <Sidebar/>
-    <main className={"grid place-items-center items-center w-screen"}>
+    <main className={"flex flex-col items-center  w-screen"}>
+     <Navbar/>
       <div className={"border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika"}>
         <Link href={"/Videoposts"} className="flex flex-col justify-center items-center">
           <span
@@ -174,9 +175,9 @@ const Viewjobpost: React.FC<{ }> = () => {
                         )}
                       </div>
                       <div className="w-9/12">
-                                <button className='flex px-6 mx-3 py-1 mt-6 rounded-full bg-red-500 float-end' onClick={() => handleDelete(post.id)} ><Image src={edit} alt='edit' />Delete</button>
+                                <button className='flex px-6 mx-3 py-1 mt-6  items-center rounded-full bg-red-500 float-end' onClick={() => handleDelete(post.id)} ><Image src={deleteicom} width={20} height={20} alt='delete' />Delete</button>
                       <Link href={`/Videoposts/Postdetails/${post.id}`} >
-                                <button className='flex px-6 py-1 mt-6 rounded-full bg-blue-500 float-end'><Image src={edit} alt='edit' />Edit</button>
+                                <button className='flex px-6 py-1 mt-6 rounded-full items-center bg-blue-500 float-end'><Image src={edit} alt='edit' />Edit</button>
                             </Link>
                          
                       <h1 className="text-xl font-bold">{post.title}</h1>
@@ -203,7 +204,7 @@ const Viewjobpost: React.FC<{ }> = () => {
 
   
       </div>
-      </div>
+      
   );
 };
 

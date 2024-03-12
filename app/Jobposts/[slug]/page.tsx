@@ -84,12 +84,12 @@ const page: React.FC<{params:any }> = ({params}) => {
     
     const pathname = usePathname()
     return (
-         <div className=''>
-         <Navbar/>
+   
       <div className='flex'>
           <Sidebar/>
 
-        <main className={'grid place-items-center items-center w-screen'}>
+        <main className={'flex flex-col items-center  w-screen'}>
+         <Navbar/>
         <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
       <Link href={'/Postjob'} className='flex flex-col justify-center items-center'>
       <span className={pathname==='/Postjob'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
@@ -188,7 +188,7 @@ const page: React.FC<{params:any }> = ({params}) => {
           </div>
           
       </main>
-          </div>
+         
           </div>
     )
 }

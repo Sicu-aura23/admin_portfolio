@@ -85,7 +85,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
     <div className="text-editor w-[100%]">
        <style>{customCSS}</style>
       <ReactQuill
-        className=" max-w-screen h-[35vh]"
+        className=" max-w-screen h-[25vh]"
         placeholder="Type job description here"
         theme="snow"
         modules={modules}

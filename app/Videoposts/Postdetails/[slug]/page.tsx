@@ -190,11 +190,11 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const pathname = usePathname()
 
   return (
-     <div className=''>
-     <Navbar/>
+  
   <div className='flex'>
       <Sidebar/>
     <main className={'flex flex-col items-center w-screen'}>
+     <Navbar/>
           <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
         <Link href={'/Videpposts'} className='flex flex-col justify-center items-center'>
         <span className={pathname===`/Videoposts/Postdetails/${postid}`?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a images</span>
@@ -242,7 +242,7 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
   
       </div>
-      </div>
+   
   )
 }
 

@@ -15,7 +15,7 @@ export const Sidebar = () => {
   const pathname = usePathname()
   return (
     
-    <div className={'w-20 text-white flex flex-col gap-20 pt-20 h-screen bg-[#020E1B]'}>
+    <div className={'w-20 text-white flex flex-col gap-20 pt-20 h-[100vh] bg-[#020E1B]'}>
       <Link href={'/Postjob'} className='flex gap-3'>
         <Image src={pathname==='/Postjob'?line:pathname==='/Previewjobpost'?line:pathname.includes('/Jobposts')?line:""}  alt=''/>
         

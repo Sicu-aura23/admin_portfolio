@@ -82,11 +82,11 @@ const page: React.FC<{ params: any }> = ({ params }) => {
     };
     const pathname = usePathname()
     return (
-           <div className=''>
-           <Navbar/>
+      
         <div className='flex'>
             <Sidebar/>
-        <main className={'grid place-items-center items-center w-screen'}>
+        <main className={'flex flex-col items-center w-screen'}>
+           <Navbar/>
             <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
                 <Link href={'/Postjob'} className='flex flex-col justify-center items-center'>
                     <span className={pathname === '/Postjob' ? ' text-[#0DF5E3]' : pathname === '/Previewjobpost' ? 'text-[#0DF5E3]' : ""}>Post a Job</span>
@@ -100,7 +100,7 @@ const page: React.FC<{ params: any }> = ({ params }) => {
             </div>
             {
                 loading ? (
-                    <div role="status" className="animate-pulse w-[95%] space-y-11 py-5 my-6 bg-slate-300 rounded-md">
+                    <div role="status" className="animate-pulse w-[95%] space-y-8 py-5 my-3 bg-slate-300 rounded-md">
                         <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700  w-[30%] mb-2.5 mx-[1%]"></div>
                         <div className='flex mx-[1%]'>
                             <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700  w-[15%] mb-2.5 "></div>
@@ -134,7 +134,7 @@ const page: React.FC<{ params: any }> = ({ params }) => {
                         <span className="sr-only">Loading...</span>
                     </div>
                 ) :
-                    <section className='w-[95%] h-[60vh] overflow-y-scroll px-5 my-6 border rounded-lg text-black'>
+                    <section className='w-[95%] h-[60vh] overflow-y-scroll px-5 my-4 border rounded-lg text-black'>
 
                         <div className='flex border-b border-gray-300 justify-between '>
                             <div className='flex flex-col items-start justify-evenly  my-5'>
@@ -220,7 +220,7 @@ const page: React.FC<{ params: any }> = ({ params }) => {
         </main>
             
             </div>
-            </div>
+           
     )
 }
 

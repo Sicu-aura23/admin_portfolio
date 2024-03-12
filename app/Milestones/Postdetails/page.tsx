@@ -3,6 +3,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import edit from '@/public/edit.png'
+import deleteicom from '@/public/delete.png'
 import { usePathname } from "next/navigation";
 import {
   DocumentData,
@@ -74,11 +75,11 @@ const Viewjobpost: React.FC<{ }> = () => {
 
   const pathname = usePathname();
   return (
-     <div className=''>
-     <Navbar/>
+  
   <div className='flex'>
       <Sidebar/>
-    <main className={"grid place-items-center items-center w-screen"}>
+    <main className={"flex flex-col items-center  w-screen"}>
+     <Navbar/>
       <div className={"border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika"}>
         <Link href={"/Milestones"} className="flex flex-col justify-center items-center">
           <span
@@ -158,9 +159,9 @@ const Viewjobpost: React.FC<{ }> = () => {
                        <>
                        <div className="float-end flex flex-col items-center">
     <Link href={`/Milestones/Postdetails/${post.id}`} >
-                                <button className='flex px-6 py-1 mt-6 rounded-full bg-blue-500'><Image src={edit} alt='edit' />Edit</button>
+                                <button className='flex px-6 py-1 mt-6 rounded-full items-center bg-blue-500'><Image src={edit}  alt='edit' />Edit</button>
                             </Link>
-                            <button className='flex px-6 py-1 mt-6 rounded-full bg-red-500' onClick={() => handleDelete(post.id)}><Image src={edit} alt='delete' />Delete</button>
+                            <button className='flex px-4 py-1 mt-6 items-center rounded-full bg-red-500' onClick={() => handleDelete(post.id)}><Image width={20} height={20} src={deleteicom} alt='delete' />Delete</button>
                        </div>
                     <div className="flex border-b gap-5 border-gray-300 items-center justify-between py-10">
                       
@@ -209,7 +210,7 @@ const Viewjobpost: React.FC<{ }> = () => {
 
   
       </div>
-      </div>
+   
   );
 };
 

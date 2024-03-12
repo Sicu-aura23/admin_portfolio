@@ -71,11 +71,11 @@ const Viewjobpost: React.FC<{}> = () => {
     
     const pathname = usePathname()
     return (
-           <div className=''>
-           <Navbar/>
+        
         <div className='flex'>
             <Sidebar/>
-        <main className={'grid place-items-center items-center w-screen'}>
+        <main className={'flex flex-col items-center relative  w-screen'}>
+           <Navbar/>
         <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
         <Link href={'/'} className='flex flex-col justify-center items-center'>
         <span className={pathname==='/'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a Job</span>
@@ -120,7 +120,7 @@ const Viewjobpost: React.FC<{}> = () => {
             </div>
             {loading && (
                 <motion.div
-                    className='w-[30%] bg-white rounded-xl h-[20vh] absolute flex flex-col justify-center items-center' style={{ boxShadow: "1px 1px 30px lightgray" }}
+                    className='w-[30%] bg-white rounded-xl h-[20vh] absolute top-[40%] flex flex-col justify-center items-center' style={{ boxShadow: "1px 1px 30px lightgray" }}
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{
@@ -134,7 +134,7 @@ const Viewjobpost: React.FC<{}> = () => {
                 </motion.div>
             )}
         </main>
-            </div>
+           
             </div>
     )
 }
