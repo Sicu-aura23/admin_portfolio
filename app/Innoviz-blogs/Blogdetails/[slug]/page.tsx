@@ -14,6 +14,8 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import Navbar from '@/app/Navbar';
 import { Sidebar } from '@/app/Sidebar';
 import dynamic from 'next/dynamic';
+import { InnovizSidebar } from '@/app/Innoviz-sidebar';
+import InnovizNavbar from '@/app/Innoviz-navbar';
 
 // export interface EditorProps {
 //   value?: string;
@@ -192,15 +194,15 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
   return (
   
   <div className='flex'>
-      <Sidebar/>
+      <InnovizSidebar/>
     <main className={'flex flex-col items-center w-screen'}>
-     <Navbar/>
+   <InnovizNavbar/>
           <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
-        <Link href={'/Videoposts'} className='flex flex-col justify-center items-center'>
-        <span className={pathname===`/Videoposts/Postdetails/${postid}`?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Edit Blogs</span>
-        <span className={pathname===`/Videoposts/Postdetails/${postid}`?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
-        </Link>
-        <Link href={'/Videoposts/Postdetails'} className='flex flex-col justify-center items-center'>
+        <div className='flex flex-col justify-center items-center'>
+        <span className={pathname===`/Innoviz-blogs/Blogdetails/${postid}`?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Edit Blogs</span>
+        <span className={pathname===`/Innoviz-blogs/Blogdetails/${postid}`?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
+        </div>
+        <Link href={'/Innoviz-blogs/Blogdetails'} className='flex flex-col justify-center items-center'>
         <span className={pathname==='/Jobposts'?' text-[#0DF5E3]':''}>Updated Blogs</span>
         <span  className={pathname==='/Jobposts'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':'p-[1.5px] w-[40px] bg-[#ffff]'}></span>
         </Link>

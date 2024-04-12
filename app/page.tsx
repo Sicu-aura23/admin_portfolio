@@ -55,7 +55,7 @@ const page = () => {
           const expiryTime = Date.now() + 86400000; // 1 day expiry time
           sessionStorage.setItem('isLoggedIn', 'true'); // Set isLoggedIn flag in sessionStorage
           sessionStorage.setItem('expiryTime', expiryTime.toString()); // Set expiry time in sessionStorage
-          router.push('/Postjob');
+          router.push('/Choose');
         }
       });
 

@@ -15,9 +15,9 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from "../../firebase.config";
-import Navbar from "@/app/Navbar";
-import { Sidebar } from "@/app/Sidebar";
 import Image from "next/image";
+import { InnovizSidebar } from "@/app/Innoviz-sidebar";
+import InnovizNavbar from "@/app/Innoviz-navbar";
 
 
 
@@ -61,11 +61,11 @@ const Viewjobpost: React.FC<{ }> = () => {
   return (
 
   <div className='flex'>
-      <Sidebar/>
+  <InnovizSidebar/>
     <main className={"flex flex-col items-center  w-screen"}>
-     <Navbar/>
+     <InnovizNavbar/>
       <div className={"border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika"}>
-        <Link href={"/Videoposts"} className="flex flex-col justify-center items-center">
+        <Link href={"/Innoviz-blogs"} className="flex flex-col justify-center items-center">
           <span
             className={
               pathname === "/"
@@ -91,12 +91,12 @@ const Viewjobpost: React.FC<{ }> = () => {
           href={"/Videoposts/Postdetails"}
           className="flex flex-col justify-center items-center"
         >
-          <span className={pathname === "/Videoposts/Postdetails" ? " text-[#0DF5E3]" : ""}>
+          <span className={pathname === "/Innoviz-blogs/Blogdetails" ? " text-[#0DF5E3]" : ""}>
           Updated Blogs
           </span>
           <span
             className={
-              pathname === "/Videoposts/Postdetails"
+              pathname === "/Innoviz-blogs/Blogdetails"
                 ? "p-[1.5px] w-[40px] bg-[#0DF5E3]"
                 : "p-[1.5px] w-[40px] bg-[#ffff]"
             }
@@ -161,7 +161,7 @@ const Viewjobpost: React.FC<{ }> = () => {
                       </div>
                       <div className="w-9/12">
                                 <button className='flex px-6 mx-3 py-1 mt-6  items-center rounded-full bg-red-500 float-end' onClick={() => handleDelete(post.id)} ><Image src={deleteicom} width={20} height={20} alt='delete' />Delete</button>
-                      <Link href={`/Videoposts/Postdetails/${post.id}`} >
+                      <Link href={`/Innoviz-blogs/Blogdetails/${post.id}`} >
                                 <button className='flex px-6 py-1 mt-6 rounded-full items-center bg-blue-500 float-end'><Image src={edit} alt='edit' />Edit</button>
                             </Link>
                          

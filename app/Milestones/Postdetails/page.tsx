@@ -91,7 +91,7 @@ const Viewjobpost: React.FC<{ }> = () => {
                 : ""
             }
           >
-          Post a blogs
+          Post a Images
           </span>
           <span
             className={
@@ -108,7 +108,7 @@ const Viewjobpost: React.FC<{ }> = () => {
           className="flex flex-col justify-center items-center"
         >
           <span className={pathname === "/Milestones/Postdetails" ? " text-[#0DF5E3]" : ""}>
-          Updated Blogs
+          Updated Posts
           </span>
           <span
             className={

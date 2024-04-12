@@ -9,9 +9,9 @@ import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { firestore, storage } from '../firebase.config';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import Navbar from '../Navbar';
-import { Sidebar } from '../Sidebar';
 import dynamic from 'next/dynamic';
+import InnovizNavbar from '../Innoviz-navbar';
+import { InnovizSidebar } from '../Innoviz-sidebar';
 
 // export interface EditorProps {
 //   value?: string;
@@ -144,18 +144,18 @@ if(type ==='file'){
   return (
     
   <div className='flex'>
-      <Sidebar/>
+     <InnovizSidebar/>
 
     <main className={'flex flex-col items-center w-[100%] '}>
-     <Navbar/>
+    <InnovizNavbar/>
           <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
         <Link href={'/'} className='flex flex-col justify-center items-center'>
-        <span className={pathname==='/Videoposts'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a blogs</span>
-        <span className={pathname==='/Videoposts'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
+        <span className={pathname==='/Innoviz-blogs'?' text-[#0DF5E3]':pathname==='/Previewjobpost'?'text-[#0DF5E3]':""}>Post a blogs</span>
+        <span className={pathname==='/Innoviz-blogs'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':pathname==='/Previewjobpost'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':"bg-[#ffff]"}></span>
         </Link>
-        <Link href={'/Videoposts/Postdetails'} className='flex flex-col justify-center items-center'>
-        <span className={pathname==='/Jobposts'?' text-[#0DF5E3]':''}>Updated Blogs</span>
-        <span  className={pathname==='/Jobposts'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':'p-[1.5px] w-[40px] bg-[#ffff]'}></span>
+        <Link href={'/Innoviz-blogs/Blogdetails'} className='flex flex-col justify-center items-center'>
+        <span className={pathname==='/Innoviz-blogs/Blogdetails'?' text-[#0DF5E3]':''}>Updated Blogs</span>
+        <span  className={pathname==='/Innoviz-blogs/Blogdetails'?'p-[1.5px] w-[40px] bg-[#0DF5E3]':'p-[1.5px] w-[40px] bg-[#ffff]'}></span>
         </Link>
        </div>
         <form className={'w-[95%] relative mt-5 flex flex-col gap-6'}  onSubmit={handleSubmit}>

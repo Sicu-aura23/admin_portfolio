@@ -114,7 +114,7 @@ const Jobpost = () => {
    
       <div className='flex'>
         <Sidebar />
-        <main className={'flex flex-col items-center w-[100%] '}>
+        <main className={'flex flex-col items-center w-[100%]'}>
         <Navbar />
           <div className={'border-b flex w-[95%] space-x-14 px-0 py-2 font-Inika'}>
             <Link href={'/Postjob'} className='flex flex-col justify-center items-center'>
@@ -203,9 +203,9 @@ const Jobpost = () => {
 
                   </span>
                 </div>
-                <div className='flex justify-end'>
+                <div className='flex justify-end '>
                   <label className='w-[100px]'>Skills</label>
-                  <div className='flex flex-wrap gap-5 w-[51.7vw]'>
+                  <div className='flex flex-wrap gap-5 w-[53.3vw]'>
                     {skills.map((skill, index) => (
                       <span key={index} className=' h-[30px]  border rounded px-2 flex items-center border-gray-400'>
                         <input
