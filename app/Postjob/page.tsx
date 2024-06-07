@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-// import { EditorContentChanged } from '../Jobpost/texteditor'
+
 import dynamic from "next/dynamic";
 
 const TextEditor = dynamic(
@@ -9,12 +9,7 @@ const TextEditor = dynamic(
   },
   { ssr: false }
 )
-// const EditorContentChanged = dynamic(
-//   () => {
-//     return import("../Jobpost/texteditor");
-//   },
-//   { ssr: false }
-// )
+
 
 import vector from '@/public/Vector2.png'
 import vector1 from '@/public/Vector1.png'
@@ -24,10 +19,7 @@ import Link from 'next/link';
 import Navbar from '../Navbar';
 import { Sidebar } from '../Sidebar';
 
-// export interface EditorProps {
-//   value?: string;
-//   onChange?: (changes: EditorContentChanged) => void;
-// }
+
 const Jobpost = () => {
   const [skills, setSkills] = useState<string[]>(['']);
   const [editorValue, setEditorValue] = useState<string>("");
