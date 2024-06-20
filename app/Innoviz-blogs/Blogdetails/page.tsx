@@ -30,7 +30,7 @@ const Viewjobpost: React.FC<{ }> = () => {
   }, []);
 
   const fetchPosts = async () => {
-    const q = query(collection(db, "blogPosts"), orderBy("date", "asc"));
+    const q = query(collection(db, "Innoviz-blogs"), orderBy("date", "asc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let postsArr: { id: string }[] = [];
       querySnapshot.forEach((doc) => {
@@ -52,7 +52,7 @@ const Viewjobpost: React.FC<{ }> = () => {
     }
 
     try {
-      await deleteDoc(doc(db, 'blogPosts', postId));
+      await deleteDoc(doc(db, 'Innoviz-blogs', postId));
       console.log('Post deleted successfully');
     } catch (error) {
       console.error('Error deleting post: ', error);
@@ -179,7 +179,7 @@ const Viewjobpost: React.FC<{ }> = () => {
         </section>
       )}
       <div className="flex flex-row w-full justify-end gap-5 px-6 py-6 font-Inika">
-        <Link href={"/Videoposts"}>
+        <Link href={"/Innoviz-blogs"}>
           <button className="bg-[#ffffff] shadow-md shadow-gray-400 rounded px-[2vw] py-[1vh] text-[#201A31] float-end">
             Back
           </button>

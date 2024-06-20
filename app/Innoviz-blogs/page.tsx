@@ -32,6 +32,7 @@ const videopost = () => {
     } else {
       return {
         title: "",
+        category:"",
         tagline: "",
         content: "",
         date: "",
@@ -129,7 +130,7 @@ if(type ==='file'){
         if (!formData.imageUrl) {
             alert("Please choose a file first!")
         }
-        firestore.collection('blogPosts').add(updatedFormData)
+        firestore.collection('Innoviz-blogs').add(updatedFormData)
         .then((docRef) => {
             console.log("Document written with ID: ", docRef.id);
         })
@@ -137,7 +138,7 @@ if(type ==='file'){
           console.error("Error adding document: ", error);
         });
         setLoading(false);
-      router.push('/Videoposts/Postdetails')
+      router.push('/Innoviz-blogs/Blogdetails')
       }
     const pathname = usePathname()
 
@@ -167,6 +168,10 @@ if(type ==='file'){
            <div className='flex md:flex-row flex-col gap-5 '>
             <label  className='w-[130px] '>Author</label>
             <input type="text" className='border rounded md:w-[30vw] w-[85vw] px-3 outline-none' name='author' placeholder='Write here Author' onChange={handleInputChange} />
+           </div>
+           <div className='flex md:flex-row flex-col gap-5 '>
+            <label  className='w-[130px] '>Category</label>
+            <input type="text" className='border rounded md:w-[30vw] w-[85vw] px-3 outline-none' name='category' placeholder='Write here category' onChange={handleInputChange} />
            </div>
            <div className='flex md:flex-row flex-col gap-5 '>
             <label  className='w-[130px] '>Tagline</label>

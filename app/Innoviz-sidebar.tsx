@@ -28,10 +28,10 @@ export const InnovizSidebar = () => {
       <Link href={'/Innoviz-blogs'} className='flex gap-6'>
       <Image src={pathname==='/Milestones'?line:pathname==='/Milestones/Postdetails'?line:pathname.includes('/Milestones/Postdetails/')?line:""}  alt=''/>
         
-      <Link href={'/Innoviz-blogs'} className='flex flex-col  items-center'>
+      {/* <Link href={'/Innoviz-blogs'} className='flex flex-col  items-center'>
        <Image src={pathname==='/Milestones'?IMGcolor:pathname==='/Milestones/Postdetails'?IMGcolor:pathname.includes('/Milestones/Postdetails/')?IMGcolor:IMG}  alt='job'/>
        <span className='text-xs'>Mails</span>
-      </Link>
+      </Link> */}
 
       </Link>
     </div>

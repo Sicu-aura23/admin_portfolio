@@ -42,6 +42,7 @@ const videopost: React.FC<{params:any }> = ({params}) => {
       return {
         title: "",
         tagline: "",
+        category:"",
         content: "",
         date: "",
         // author: "",
@@ -54,7 +55,7 @@ const videopost: React.FC<{params:any }> = ({params}) => {
       setsaveddata(fdata ? JSON.parse(fdata) : null);
         const fetchData = async () => {
             try {
-              const docRef = doc(db, 'blogPosts', postid);
+              const docRef = doc(db, 'Innoviz-blogs', postid);
               const docSnap = await getDoc(docRef);
           
               if (docSnap.exists()) {
@@ -174,12 +175,12 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       alert("Please choose a file first!");
       setLoading(false);
     } else {
-      const docRef = doc(db, 'blogPosts', postid); 
+      const docRef = doc(db, 'Innoviz-blogs', postid); 
       updateDoc(docRef, updatedFormData)
         .then(() => {
           console.log("Document updated successfully!");
           setLoading(false);
-          router.push('/Videoposts/Postdetails');
+          router.push('/Innoviz-blogs/Blogdetails');
         })
         .catch((error) => {
           console.error("Error updating document: ", error);
@@ -213,10 +214,10 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
             <label  className='w-[130px] '>Title</label>
             <input type="text" className='border rounded md:w-[30vw] w-[85vw] px-3 outline-none' value={formData.title} name='title' placeholder='Write here Title' onChange={handleInputChange} />
            </div>
-           {/* <div className='flex md:flex-row flex-col gap-5 '>
-            <label  className='w-[130px] '>Author</label>
-            <input type="text" className='border rounded md:w-[30vw] w-[85vw] px-3 outline-none' name='author' placeholder='Write here Author' onChange={handleInputChange} />
-           </div> */}
+           <div className='flex md:flex-row flex-col gap-5 '>
+            <label  className='w-[130px] '>Category</label>
+            <input type="text" className='border rounded md:w-[30vw] w-[85vw] px-3 outline-none' value={formData.category} name='category' placeholder='Write here category' onChange={handleInputChange} />
+           </div>
            <div className='flex md:flex-row flex-col gap-5 '>
             <label  className='w-[130px] '>Tagline</label>
             <input type="text" className='border rounded md:w-[30vw] w-[85vw] px-3 outline-none' value={formData.tagline} name='tagline' placeholder='Write here Tagline' onChange={handleInputChange} />
